@@ -7,14 +7,20 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import ErrorPage from './pages/ErrorPage.tsx';
+import ErrorPage from './ErrorPage.tsx';
+import ViewPage from './ViewPage/ViewPage.tsx';
+import HomePage from './HomePage/HomePage.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <HomePage />,
     errorElement: <ErrorPage />
   },
+  {
+    path: "view",
+    element: <ViewPage />
+  }
 ]);
 
 createRoot(document.getElementById('root')!).render(
