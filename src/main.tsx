@@ -11,6 +11,8 @@ import ErrorPage from './ErrorPage.tsx';
 import ViewPage from './ViewPage/ViewPage.tsx';
 import HomePage from './HomePage/HomePage.tsx';
 
+import { DataContextProvider } from './Contexts/DataContext.tsx'
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +27,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <DataContextProvider>
+      <RouterProvider router={router} />
+    </DataContextProvider>
   </StrictMode>,
 )

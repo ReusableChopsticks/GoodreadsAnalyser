@@ -1,18 +1,23 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { usePapaParse } from "react-papaparse";
+import { DataContext } from "../Contexts/DataContext";
+import { Link, useNavigate } from "react-router-dom";
+
+
 
 
 export default function HomePage() {
   let fileReader: FileReader;
+  const navigate = useNavigate();
   const { readString } = usePapaParse();
-
-  let data = {};
+  const { setData } = useContext(DataContext);
 
 
   const handleFileRead = () => {
     const content = fileReader.result as string;
-    data = readString(content, {header: true} as any);
-    console.log(data)
+    const readData: any = readString(content, {header: true} as any);
+    setData(readData.data);
+    navigate('view');
   }
 
   const handleFileChosen = (file: File) => {
@@ -33,7 +38,3 @@ export default function HomePage() {
     </>
   )
 }
-
-// const readStringConfig = {
-//   header: true,
-// }
