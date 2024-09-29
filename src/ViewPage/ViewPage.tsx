@@ -4,7 +4,7 @@ import { getData, GoodreadsDataField } from "../Data/repo";
 export default function ViewPage() {
   const [viewData, setViewData] = useState<GoodreadsDataField[]>(getData())
 
-  // load the data in
+  // load the data in on page load
   useEffect(() => {
     const readBooksOnly = getData().filter((field) => field['Exclusive Shelf'] === "read");
     setViewData(readBooksOnly);

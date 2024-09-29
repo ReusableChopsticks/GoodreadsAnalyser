@@ -27,6 +27,33 @@ export interface GoodreadsDataField {
   "Owned Copies": number;
 }
 
+export const GOODREADS_FIELDS = [
+  "Book Id",
+  "Title",
+  "Author",
+  "Author l-f",
+  "Additional Authors",
+  "ISBN",
+  "ISBN13",
+  "My Rating",
+  "Average Rating",
+  "Publisher",
+  "Binding",
+  "Number of Pages",
+  "Year Published",
+  "Original Publication Year",
+  "Date Read",
+  "Date Added",
+  "Bookshelves",
+  "Bookshelves with positions",
+  "Exclusive Shelf",
+  "My Review",
+  "Spoiler",
+  "Private Notes",
+  "Read Count",
+  "Owned Copies"
+]
+
 const setData = (data: GoodreadsDataField[]): void => {
   localStorage.setItem(DATA_KEY, JSON.stringify(data));
 }

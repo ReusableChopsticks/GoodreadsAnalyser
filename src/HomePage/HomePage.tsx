@@ -1,6 +1,6 @@
 import { usePapaParse } from "react-papaparse";
 import { useNavigate } from "react-router-dom";
-import { setData } from "../Data/repo";
+import { GOODREADS_FIELDS, setData } from "../Data/repo";
 
 
 
@@ -9,13 +9,19 @@ export default function HomePage() {
   let fileReader: FileReader;
   const navigate = useNavigate();
   const { readString } = usePapaParse();
-
-
+  
   const handleFileRead = () => {
     const content = fileReader.result as string;
     const readData: any = readString(content, {header: true} as any);
-    setData(readData.data);
-    navigate('view');
+    console.log(readData);
+
+    if (readData.meta.fields.every((field: string, index: number) => field === GOODREADS_FIELDS[index])) {
+      setData(readData.data);
+      navigate('view');
+    } else {
+      console.log("INVALID FILE: FIELDS DO NOT MATCH");
+    }
+
   }
 
   const handleFileChosen = (file: File) => {
