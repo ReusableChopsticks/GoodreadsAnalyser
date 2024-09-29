@@ -1,7 +1,6 @@
 import { usePapaParse } from "react-papaparse";
 import { useNavigate } from "react-router-dom";
-import { GOODREADS_FIELDS, setData } from "../Data/repo";
-
+import { GOODREADS_FIELDS, GoodreadsDataField, setData } from "../Data/repo";
 
 
 
@@ -16,7 +15,7 @@ export default function HomePage() {
     console.log(readData);
 
     if (readData.meta.fields.every((field: string, index: number) => field === GOODREADS_FIELDS[index])) {
-      setData(readData.data);
+      setData(processData(readData.data));
       navigate('view');
     } else {
       console.log("INVALID FILE: FIELDS DO NOT MATCH");
@@ -41,4 +40,23 @@ export default function HomePage() {
       }}/>
     </>
   )
+}
+
+const processData = (data: GoodreadsDataField[]) => {
+  let filtered: GoodreadsDataField[];
+  // only use books in 'read' shelf (a.k.a. books users have read)
+  filtered = data.filter((field) => field['Exclusive Shelf'] === "read");
+  // process the title: remove brackets and colons
+  filtered = filtered.map(field => {
+    // Use regular expression to match everything after '(' or ':' and remove it
+    const cleanedTitle = field.Title.replace(/[:\(].*$/, '').trim();
+
+    // Return a new object with the cleaned title while preserving other properties
+    return {
+      ...field,
+      Title: cleanedTitle
+    };
+  });
+
+  return filtered;
 }
