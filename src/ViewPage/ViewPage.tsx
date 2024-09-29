@@ -1,12 +1,13 @@
-import { useContext, useEffect } from "react";
-import { DataContext } from "../Contexts/DataContext";
+import { useContext, useEffect, useState } from "react";
+import { getData, GoodreadsDataField } from "../Data/repo";
 
 export default function ViewPage() {
-  const dataContext = useContext(DataContext);
+  const [viewData, setViewData] = useState<GoodreadsDataField[]>(getData())
 
+  // load the data in
   useEffect(() => {
-    console.log("VIEW PAGE ########");
-    console.log(dataContext?.getData());
+    const readBooksOnly = getData().filter((field) => field['Exclusive Shelf'] === "read");
+    setViewData(readBooksOnly);
   }, []);
 
   return (
@@ -14,7 +15,9 @@ export default function ViewPage() {
       <p>whats up bro</p>
       <div>
         {
-          dataContext?.getData().toLocaleString()
+          viewData.map((book) => {
+            return <p>{book.Title}</p>
+          })
         }
       </div>
     </>

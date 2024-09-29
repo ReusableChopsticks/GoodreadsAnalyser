@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react"
 import { usePapaParse } from "react-papaparse";
-import { DataContext } from "../Contexts/DataContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { setData } from "../Data/repo";
 
 
 
@@ -10,7 +9,6 @@ export default function HomePage() {
   let fileReader: FileReader;
   const navigate = useNavigate();
   const { readString } = usePapaParse();
-  const { setData } = useContext(DataContext);
 
 
   const handleFileRead = () => {
