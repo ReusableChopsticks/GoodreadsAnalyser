@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getData, GoodreadsDataField } from "../Data/repo";
 
 export default function ViewPage() {
@@ -6,21 +6,24 @@ export default function ViewPage() {
 
   // load the data in on page load
   useEffect(() => {
-    const readBooksOnly = getData().filter((field) => field['Exclusive Shelf'] === "read");
-    setViewData(readBooksOnly);
+    // const readBooksOnly = getData().filter((field) => field['Exclusive Shelf'] === "read");
+    // setViewData(readBooksOnly);
+    // console.log(readBooksOnly);
+    setViewData(getData());
   }, []);
 
   return (
     <>
-      <p>whats up bro</p>
-      <div>
+      <ol>
         {
           viewData.map((book) => {
-            return <p>{book.Title}</p>
+            return <li>{book.Title}</li>
           })
         }
-      </div>
+      </ol>
+      
     </>
   );
 }
+
 

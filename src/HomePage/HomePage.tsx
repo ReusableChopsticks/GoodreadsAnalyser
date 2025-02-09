@@ -1,6 +1,6 @@
 import { usePapaParse } from "react-papaparse";
 import { useNavigate } from "react-router-dom";
-import { GOODREADS_FIELDS, GoodreadsDataField, setData } from "../Data/repo";
+import { GOODREADS_FIELDS, processData, setData } from "../Data/repo";
 
 
 
@@ -14,13 +14,21 @@ export default function HomePage() {
     const readData: any = readString(content, {header: true} as any);
     console.log(readData);
 
-    if (readData.meta.fields.every((field: string, index: number) => field === GOODREADS_FIELDS[index])) {
-      setData(processData(readData.data));
-      navigate('view');
-    } else {
-      console.log("INVALID FILE: FIELDS DO NOT MATCH");
+    let valid = true;
+    // if file uploaded is correct (a goodreads export) and not empty
+    if (readData.data.length === 0) {
+      console.log("INVALID FILE: file is empty");
+      valid = false;
+    }
+    if (!readData.meta.fields.every((field: string, index: number) => field === GOODREADS_FIELDS[index])) {
+      console.log("INVALID FILE: fields do not match. Did you upload a different file by accident?");
+      valid = false;
     }
 
+    if (valid) {
+      setData(readData.data);
+      navigate('view');
+    }
   }
 
   const handleFileChosen = (file: File) => {
@@ -42,21 +50,5 @@ export default function HomePage() {
   )
 }
 
-const processData = (data: GoodreadsDataField[]) => {
-  let filtered: GoodreadsDataField[];
-  // only use books in 'read' shelf (a.k.a. books users have read)
-  filtered = data.filter((field) => field['Exclusive Shelf'] === "read");
-  // process the title: remove brackets and colons
-  filtered = filtered.map(field => {
-    // Use regular expression to match everything after '(' or ':' and remove it
-    const cleanedTitle = field.Title.replace(/[:\(].*$/, '').trim();
 
-    // Return a new object with the cleaned title while preserving other properties
-    return {
-      ...field,
-      Title: cleanedTitle
-    };
-  });
 
-  return filtered;
-}

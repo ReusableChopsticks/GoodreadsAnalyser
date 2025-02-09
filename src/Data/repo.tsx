@@ -55,7 +55,7 @@ export const GOODREADS_FIELDS = [
 ]
 
 const setData = (data: GoodreadsDataField[]): void => {
-  localStorage.setItem(DATA_KEY, JSON.stringify(data));
+  localStorage.setItem(DATA_KEY, JSON.stringify(processData(data)));
 }
 const getData = (): GoodreadsDataField[] => {
   const data = localStorage.getItem(DATA_KEY);
@@ -65,8 +65,44 @@ const clearData = (): void => {
   localStorage.setItem(DATA_KEY, '[]');
 }
 
+/**
+ * 
+ * @param data an array of goodreads fields
+ * @returns the same array but titles are cleaned
+ */
+const processData = (data: GoodreadsDataField[]) => {
+  // only use books in 'read' shelf (a.k.a. books users have read)
+  // let filtered: GoodreadsDataField[];
+  // filtered = data.filter((field) => field['Exclusive Shelf'] === "read");
+  
+  // console.log(data);
+  let processed = data;
+
+  // for some reason, papaparse(?) always adds a blank object at the end of the array so remove it
+  processed = processed.slice(0, -1);
+
+  // process the title: remove brackets and colons
+  processed = processed.map(field => {
+    // Use regular expression to match everything after '(' or ':' and remove it
+    const cleanedTitle = field.Title.replace(/[:\(].*$/, '').trim();
+    console.log(cleanedTitle);
+
+    // Return a new object with the cleaned title while preserving other properties
+    return {
+      ...field,
+      Title: cleanedTitle
+    };
+  });
+
+  console.log(processed);
+
+  return processed;
+}
+
+
 export {
   setData,
   getData,
-  clearData
+  clearData,
+  processData,
 }
