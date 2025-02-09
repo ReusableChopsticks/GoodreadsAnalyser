@@ -78,8 +78,10 @@ const processData = (data: GoodreadsDataField[]) => {
   // console.log(data);
   let processed = data;
 
-  // for some reason, papaparse(?) always adds a blank object at the end of the array so remove it
-  processed = processed.slice(0, -1);
+  // for some reason, papaparse(?) always adds a blank object at the end of the array so remove it if its there
+  if (!processed.at(-1)!["Book Id"]) {
+    processed = processed.slice(0, -1);
+  }
 
   // process the title: remove brackets and colons
   processed = processed.map(field => {
