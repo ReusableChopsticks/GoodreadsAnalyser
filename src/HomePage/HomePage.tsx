@@ -11,11 +11,11 @@ export default function HomePage() {
   
   const handleFileRead = () => {
     const content = fileReader.result as string;
-    const readData: any = readString(content, {header: true} as any);
+    const readData: any = readString(content, {header: true, dynamicTyping: {"Number of Pages": true}} as any);
     console.log(readData);
 
-    let valid = true;
     // if file uploaded is correct (a goodreads export) and not empty
+    let valid = true;
     if (readData.data.length === 0) {
       console.log("INVALID FILE: file is empty");
       valid = false;
