@@ -8,7 +8,7 @@ export interface GoodreadsDataField {
   "Additional Authors": string;
   "ISBN": string;
   "ISBN13": string;
-  "My Rating": number;
+  "My Rating": number; // Unrated books are 0. Otherwise, range is [1, 5]
   "Average Rating": number;
   "Publisher": string;
   "Binding": string;
@@ -70,12 +70,7 @@ const clearData = (): void => {
  * @param data an array of goodreads fields
  * @returns the same array but titles are cleaned
  */
-const processData = (data: GoodreadsDataField[]) => {
-  // only use books in 'read' shelf (a.k.a. books users have read)
-  // let filtered: GoodreadsDataField[];
-  // filtered = data.filter((field) => field['Exclusive Shelf'] === "read");
-  
-  // console.log(data);
+const processData = (data: GoodreadsDataField[]) => {  
   let processed = data;
 
   // for some reason, papaparse(?) always adds a blank object at the end of the array so remove it if its there
