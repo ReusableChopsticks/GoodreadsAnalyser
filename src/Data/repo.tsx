@@ -96,7 +96,6 @@ const processData = (data: GoodreadsDataField[]) => {
   return processed;
 }
 
-
 export {
   setData,
   getData,

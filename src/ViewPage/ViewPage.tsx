@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getData, GoodreadsDataField } from "../Data/repo";
+import { PAGE_HEIGHT_M } from "../Data/constants";
 
 export default function ViewPage() {
   const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
@@ -64,7 +65,8 @@ const getAverageStarRating = (data: GoodreadsDataField[]): number => {
   return sumRatings / totalRatings;
 }
 
-
+// TODO: if number of books is the same, sort authors by page count!
+// ^^^ this is totally optional because who really cares
 interface AuthorCount { author: string, readCount: number }
 /**
  * 
@@ -83,4 +85,13 @@ const getFavouriteAuthors = (data: GoodreadsDataField[]): AuthorCount[] => {
     .map(author => ({ author, readCount: authorCounts[author] }));
 
   return sortedAuthors.slice(0, 5);
+}
+
+/**
+ * 
+ * @param totalPages total number of pages read
+ * @returns the height of your book stack in meters
+ */
+const getBookStackHeight = (totalPages: number): number => {
+  return totalPages * PAGE_HEIGHT_M;
 }
