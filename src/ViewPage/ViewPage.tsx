@@ -33,6 +33,9 @@ export default function ViewPage() {
       <h2>Average star rating</h2>
       <p>{getAverageStarRating(books).toFixed(2)} stars</p>
 
+      <h2>Average read time</h2>
+      <p>{getAverageReadTime(books)} days</p>
+
       <h2>Favourite Authors</h2>
       <p>
         <ol>
@@ -56,7 +59,7 @@ const getTotalPageCount = (data: GoodreadsDataField[]): number => {
 }
 
 const getAverageStarRating = (data: GoodreadsDataField[]): number => {
-  // Exclude books that have no ratings from the average
+  // Exclude books that have no ratings
   const totalRatings = data.reduce((total, book) => total + (book["My Rating"] > 0 ? 1 : 0), 0);
   if (totalRatings === 0) {
     return 0; // Return 0 if there are no rated books
@@ -94,4 +97,32 @@ const getFavouriteAuthors = (data: GoodreadsDataField[]): AuthorCount[] => {
  */
 const getBookStackHeight = (totalPages: number): number => {
   return totalPages * PAGE_HEIGHT_M;
+}
+
+/**
+ * 
+ * @param data book list
+ * @returns average time in days to read a book
+ */
+const getAverageReadTime = (data: GoodreadsDataField[]): number => {
+  let validBooks = 0;
+  const totalReadTime = data.reduce((total, book) => {
+    // if both dates not set, do not add to total
+    if (!book["Date Added"] || !book["Date Read"]) {
+      return total;
+    }
+    
+    // find the time difference in days
+    const dateAdded = new Date(book["Date Added"]);
+    const dateRead = new Date(book["Date Read"]);
+
+    const diffTime = Math.abs(dateAdded.getTime() - dateRead.getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+    
+    validBooks += 1;
+    return total + diffDays;
+  }, 0)
+
+
+  return Math.ceil(totalReadTime / validBooks);
 }
