@@ -37,7 +37,7 @@ export default function ViewPage() {
         <ol>
           {
             getFavouriteAuthors(books).map((author) => {
-              return <li>{author}</li>
+              return <li>{`${author.author}: ${author.readCount}`}</li>
             })}
         </ol>
       </p>
@@ -64,14 +64,23 @@ const getAverageStarRating = (data: GoodreadsDataField[]): number => {
   return sumRatings / totalRatings;
 }
 
-// TODO: make it return the count of books by each author
-const getFavouriteAuthors = (data: GoodreadsDataField[]): string[] => {
+
+interface AuthorCount { author: string, readCount: number }
+/**
+ * 
+ * @param data book list 
+ * @returns a sorted list of objects of the top 5 authors by number of books read {author: string, readCount: number}
+ */
+const getFavouriteAuthors = (data: GoodreadsDataField[]): AuthorCount[] => {
   const authorCounts: { [key: string]: number } = {};
   data.forEach((book) => {
     const author = book.Author;
     authorCounts[author] = authorCounts[author] ? authorCounts[author] + 1 : 1;
   });
 
-  const sortedAuthors = Object.keys(authorCounts).sort((a, b) => authorCounts[b] - authorCounts[a]);
+  const sortedAuthors = Object.keys(authorCounts)
+    .sort((a, b) => authorCounts[b] - authorCounts[a])
+    .map(author => ({ author, readCount: authorCounts[author] }));
+
   return sortedAuthors.slice(0, 5);
 }
