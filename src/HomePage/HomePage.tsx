@@ -1,6 +1,9 @@
 import { usePapaParse } from "react-papaparse";
 import { useNavigate } from "react-router-dom";
 import { GOODREADS_FIELDS, setData } from "../Data/repo";
+import { FileUploader } from "react-drag-drop-files";
+
+import './HomePage.css';
 
 const dynamicTypingFields = { 
   "Number of Pages": true, 
@@ -55,7 +58,7 @@ export default function HomePage() {
   };
 
   return (
-    <>
+    <div className="even-columns">
       <input
         accept=".csv"
         type="file"
@@ -67,6 +70,11 @@ export default function HomePage() {
           }
         }}
       />
-    </>
+
+      <div className="instructions-content">
+        <h2>Get Started</h2>
+        <FileUploader handleFileChosen={handleFileRead} types={["csv"]}/>
+      </div>
+    </div>
   );
 }
