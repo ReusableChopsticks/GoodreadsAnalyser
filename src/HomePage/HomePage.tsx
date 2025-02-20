@@ -1,7 +1,6 @@
 import { usePapaParse } from "react-papaparse";
 import { useNavigate } from "react-router-dom";
 import { GOODREADS_FIELDS, setData } from "../Data/repo";
-import { FileUploader } from "react-drag-drop-files";
 
 import './HomePage.css';
 
@@ -51,10 +50,13 @@ export default function HomePage() {
     }
   };
 
-  const handleFileChosen = (file: File) => {
-    fileReader = new FileReader();
-    fileReader.onloadend = handleFileRead;
-    fileReader.readAsText(file);
+  const handleFileChosen = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      fileReader = new FileReader();
+      fileReader.onloadend = handleFileRead;
+      fileReader.readAsText(file);
+    }
   };
 
   return (
@@ -62,18 +64,11 @@ export default function HomePage() {
       <input
         accept=".csv"
         type="file"
-        onChange={(e) => {
-          // handle possible null to make typescript happy
-          const file = e.target.files?.[0];
-          if (file) {
-            handleFileChosen(file);
-          }
-        }}
+        onChange={handleFileChosen}
       />
 
       <div className="instructions-content">
         <h2>Get Started</h2>
-        <FileUploader handleFileChosen={handleFileRead} types={["csv"]}/>
       </div>
     </div>
   );

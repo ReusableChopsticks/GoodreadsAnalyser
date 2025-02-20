@@ -13,7 +13,6 @@
     "goodreads-analyser": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-drag-drop-files": "^2.4.0",
     "react-papaparse": "^4.4.0",
     "react-router-dom": "^6.26.2",
     "use-file-picker": "^2.1.2"
