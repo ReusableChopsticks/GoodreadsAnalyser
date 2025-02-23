@@ -25,7 +25,6 @@ export default function HomePage() {
       header: true,
       dynamicTyping: dynamicTypingFields,
     } as any);
-    // console.log(readData);
 
     // if file uploaded is correct (a goodreads export) and not empty
     let valid = true;
@@ -50,24 +49,31 @@ export default function HomePage() {
     }
   };
 
-  const handleFileChosen = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChosen = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       fileReader = new FileReader();
       fileReader.onloadend = handleFileRead;
       fileReader.readAsText(file);
+    } else {
+      // to be fair, I have no idea when this error would ever be triggered
+      console.log("INVALID FILE Try again with a different file");
     }
   };
 
-  function dropHandler(e: DragEvent<HTMLLabelElement>) {
+  const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("FILE DROPPED");
+    
     const files = e.dataTransfer.files;
-    for (let i = 0; i < files.length; i++) {
-      console.log(files[i] instanceof File);
-      console.log(files[i]);
+    if (files.length > 1) {
+      console.log("You may only upload one file at a time");
+      return;
     }
+    
+    fileReader = new FileReader();
+    fileReader.onloadend = handleFileRead;
+    fileReader.readAsText(files[0]);
   }
 
   // handle drag events
@@ -78,25 +84,24 @@ export default function HomePage() {
 
   return (
     <div className="upload-page | even-columns">
-      
-        {/* <img src={imgthing} alt="" /> */}
-        <input
-          id="file-input"
-          className="visually-hidden"
-          accept=".csv"
-          type="file"
-          onChange={handleFileChosen}
-        />
-
-        <label 
-          htmlFor="file-input" 
-          id="file-input-label"
-          onDragOver={handleDrag}
-          onDragEnter={handleDrag}
-          onDrop={dropHandler}
-        >
-          <span>Drag and drop file here</span>
-        </label>
+        <div className="file-input-container">
+          <input
+            id="file-input"
+            className="visually-hidden"
+            accept=".csv"
+            type="file"
+            onChange={handleChosen}
+          />
+          <label
+            htmlFor="file-input"
+            id="file-input-label"
+            onDragOver={handleDrag}
+            onDragEnter={handleDrag}
+            onDrop={handleDrop}
+          >
+            <span>Drag and drop file here</span>
+          </label>
+        </div>
 
       <div className="instructions-content">
         <h1>Get Started</h1>

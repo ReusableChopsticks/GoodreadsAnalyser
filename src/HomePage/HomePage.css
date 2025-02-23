@@ -1,10 +1,21 @@
-/* * { outline: 1px solid red; } */
+* { outline: 1px solid red; }
 
 .upload-page {
   height: 100vh;
 }
 
+.file-input-container {
+  margin-inline: 5rem;
+  margin-block: 3rem;
+  display: grid
+}
 
+#file-input-label {
+  display: grid;
+  background-color: pink;
+  justify-content: center;
+  align-items: center;
+}
 
 /* make the file input visible when focused for accessibility */
 /* taken from MDN docs https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications */
