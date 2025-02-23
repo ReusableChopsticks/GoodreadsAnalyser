@@ -1,3 +1,13 @@
+/* * { outline: 1px solid red; } */
+
+.upload-page {
+  height: 100vh;
+}
 
 
 
+/* make the file input visible when focused for accessibility */
+/* taken from MDN docs https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications */
+input.visually-hidden:is(:focus, :focus-within) + label {
+  outline: thin dotted;
+}

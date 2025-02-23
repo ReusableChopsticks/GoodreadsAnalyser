@@ -10,6 +10,7 @@ import {
 import ErrorPage from './ErrorPage.tsx';
 import ViewPage from './ViewPage/ViewPage.tsx';
 import HomePage from './HomePage/HomePage.tsx';
+import ScrapsPage from './scraps/thejoyoflearningts.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "view",
     element: <ViewPage />
+  },
+  {
+    path: "scraps",
+    element: <ScrapsPage />
   }
 ]);
 

@@ -2,11 +2,11 @@ import { usePapaParse } from "react-papaparse";
 import { useNavigate } from "react-router-dom";
 import { GOODREADS_FIELDS, setData } from "../Data/repo";
 
-import './HomePage.css';
+import "./HomePage.css";
 
-const dynamicTypingFields = { 
-  "Number of Pages": true, 
-  "My Rating": true ,
+const dynamicTypingFields = {
+  "Number of Pages": true,
+  "My Rating": true,
   "Avergae Rating": true,
   "Year Published": true,
   "Original Publication Year": true,
@@ -59,17 +59,51 @@ export default function HomePage() {
     }
   };
 
+  function dropHandler(e: DragEvent<HTMLLabelElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("FILE DROPPED");
+    const files = e.dataTransfer.files;
+    for (let i = 0; i < files.length; i++) {
+      console.log(files[i] instanceof File);
+      console.log(files[i]);
+    }
+  }
+
+  // handle drag events
+  const handleDrag = (e: DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
-    <div className="even-columns">
-      <input
-        accept=".csv"
-        type="file"
-        onChange={handleFileChosen}
-      />
+    <div className="upload-page | even-columns">
+      
+        {/* <img src={imgthing} alt="" /> */}
+        <input
+          id="file-input"
+          className="visually-hidden"
+          accept=".csv"
+          type="file"
+          onChange={handleFileChosen}
+        />
+
+        <label 
+          htmlFor="file-input" 
+          id="file-input-label"
+          onDragOver={handleDrag}
+          onDragEnter={handleDrag}
+          onDrop={dropHandler}
+        >
+          <span>Drag and drop file here</span>
+        </label>
 
       <div className="instructions-content">
-        <h2>Get Started</h2>
+        <h1>Get Started</h1>
       </div>
     </div>
   );
 }
+
+import imgthing from "/HomeLogo.png";
+import { DragEvent } from "react";
