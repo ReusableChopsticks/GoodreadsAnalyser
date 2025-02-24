@@ -2,6 +2,8 @@ import { usePapaParse } from "react-papaparse";
 import { useNavigate } from "react-router-dom";
 import { GOODREADS_FIELDS, setData } from "../Data/repo";
 
+import { MdOutlineUploadFile } from "react-icons/md";
+
 import "./HomePage.css";
 
 const dynamicTypingFields = {
@@ -15,6 +17,8 @@ const dynamicTypingFields = {
 };
 
 export default function HomePage() {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  
   let fileReader: FileReader;
   const navigate = useNavigate();
   const { readString } = usePapaParse();
@@ -91,6 +95,7 @@ export default function HomePage() {
             accept=".csv"
             type="file"
             onChange={handleChosen}
+            ref={inputRef}
           />
           <label
             htmlFor="file-input"
@@ -99,7 +104,10 @@ export default function HomePage() {
             onDragEnter={handleDrag}
             onDrop={handleDrop}
           >
-            <span>Drag and drop file here</span>
+            <MdOutlineUploadFile />
+            <span>Drag and drop exported Goodreads library file here</span>
+            <span>OR</span>
+            <button onClick={() => inputRef.current?.click()}>Browse Files</button>
           </label>
         </div>
 
@@ -111,4 +119,4 @@ export default function HomePage() {
 }
 
 import imgthing from "/HomeLogo.png";
-import { DragEvent } from "react";
+import { DragEvent, useRef } from "react";
