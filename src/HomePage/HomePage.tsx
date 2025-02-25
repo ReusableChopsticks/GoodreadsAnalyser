@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { DragEvent, useRef } from "react";
 import { GOODREADS_FIELDS, setData } from "../Data/repo";
 
-
 import { MdOutlineUploadFile } from "react-icons/md";
 
 import "./HomePage.css";
@@ -20,7 +19,7 @@ const dynamicTypingFields = {
 
 export default function HomePage() {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  
+
   let fileReader: FileReader;
   const navigate = useNavigate();
   const { readString } = usePapaParse();
@@ -70,17 +69,17 @@ export default function HomePage() {
   const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     const files = e.dataTransfer.files;
     if (files.length > 1) {
       console.log("You may only upload one file at a time");
       return;
     }
-    
+
     fileReader = new FileReader();
     fileReader.onloadend = handleFileRead;
     fileReader.readAsText(files[0]);
-  }
+  };
 
   // handle drag events
   const handleDrag = (e: DragEvent<HTMLLabelElement>) => {
@@ -90,28 +89,37 @@ export default function HomePage() {
 
   return (
     <div className="upload-page | even-columns ff-primary">
-        <div className="file-input-container">
-          <input
-            id="file-input"
-            className="visually-hidden"
-            accept=".csv"
-            type="file"
-            onChange={handleChosen}
-            ref={inputRef}
-          />
-          <label
-            htmlFor="file-input"
-            id="file-input-label"
-            onDragOver={handleDrag}
-            onDragEnter={handleDrag}
-            onDrop={handleDrop}
-          >
-            <MdOutlineUploadFile />
-            <span>Drag and drop exported Goodreads library file here</span>
-            <span>OR</span>
-            <button onClick={() => inputRef.current?.click()}>Browse Files</button>
-          </label>
-        </div>
+      <div className="file-input-container">
+        <input
+          id="file-input"
+          className="visually-hidden"
+          accept=".csv"
+          type="file"
+          onChange={handleChosen}
+          ref={inputRef}
+        />
+        <label
+          htmlFor="file-input"
+          id="file-input-label"
+          onDragOver={handleDrag}
+          onDragEnter={handleDrag}
+          onDrop={handleDrop}
+        >
+          <MdOutlineUploadFile id="file-input-symbol" />
+          <span id="text-input-span">
+            Drag and drop exported Goodreads library file here
+          </span>
+          <span id="or-input-span">OR</span>
+          <button onClick={() => inputRef.current?.click()}>
+            Browse Files
+          </button>
+        </label>
+          <span id="input-privacy-notice">
+            Note: Any data you upload is processed solely within your browser
+            and is not stored or transmitted by us in any way. We do not retain
+            or have access to your uploaded information.
+          </span>
+      </div>
 
       <div className="instructions-content">
         <h1>Get Started</h1>
@@ -119,4 +127,3 @@ export default function HomePage() {
     </div>
   );
 }
-
