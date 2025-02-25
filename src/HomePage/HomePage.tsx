@@ -1,6 +1,8 @@
 import { usePapaParse } from "react-papaparse";
 import { useNavigate } from "react-router-dom";
+import { DragEvent, useRef } from "react";
 import { GOODREADS_FIELDS, setData } from "../Data/repo";
+
 
 import { MdOutlineUploadFile } from "react-icons/md";
 
@@ -87,7 +89,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="upload-page | even-columns">
+    <div className="upload-page | even-columns ff-primary">
         <div className="file-input-container">
           <input
             id="file-input"
@@ -118,5 +120,3 @@ export default function HomePage() {
   );
 }
 
-import imgthing from "/HomeLogo.png";
-import { DragEvent, useRef } from "react";

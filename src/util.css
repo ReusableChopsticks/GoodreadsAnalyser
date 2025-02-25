@@ -1,5 +1,5 @@
-/* Colours */
 :root {
+  /* Colours */
   --clr-neutral-100: white;
   --clr-neutral-200: #F6EEE3;
   --clr-neutral-300: #EEE7D7;
@@ -8,7 +8,19 @@
   --clr-neutral-600: #CEA082;
   --clr-neutral-800: #8A827B;
   --clr-neutral-900: #262422;
+  
+  /* font family */
+  --ff-primary: "Libre Calson Text", serif;
+  --ff-secondary: "Libre Franklin", sans-serif;
 }
+
+.ff-primary {
+  font-family: var(--ff-primary);
+}
+.ff-secondary {
+  font-family: var(--ff-secondary);
+}
+
 
 /* Utility */
 .even-columns {

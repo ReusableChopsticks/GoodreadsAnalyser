@@ -2,6 +2,7 @@
 
 .upload-page {
   height: 100vh;
+  font-family: var(--ff-primary);
 }
 
 .file-input-container {
