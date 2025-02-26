@@ -11,7 +11,7 @@ import "./HomePage.css";
 const dynamicTypingFields = {
   "Number of Pages": true,
   "My Rating": true,
-  "Avergae Rating": true,
+  "Average Rating": true,
   "Year Published": true,
   "Original Publication Year": true,
   "Read Count": true,

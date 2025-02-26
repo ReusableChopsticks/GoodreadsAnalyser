@@ -15,8 +15,8 @@ export interface GoodreadsDataField {
   "Number of Pages": number;
   "Year Published": number;
   "Original Publication Year": number;
-  "Date Read": Date;
-  "Date Added": Date;
+  "Date Read": string;
+  "Date Added": string;
   "Bookshelves": string;
   "Bookshelves with positions": string;
   "Exclusive Shelf": string;

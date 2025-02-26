@@ -1,0 +1,50 @@
+
+/* * {outline: solid red 1px} */
+
+.view-page {
+  min-height: 100vh;
+}
+
+.statistics-view, .book-tower {
+  margin-inline: 2rem;
+  outline: solid #EEEE 2px;
+}
+
+
+/* STATISTICS */
+.statistics-view {
+  padding-inline: 3rem;
+  padding-top: 2rem;
+}
+
+/* BOOK TOWER */
+
+.book-tower {
+  /* max-height: 100vh; */
+  height: 100vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+
+  background-color: #FFF8EA;
+  /* justify-self: center;   */
+}
+
+.floor {
+  background-color: var(--clr-neutral-700);
+  min-height: 50px;
+}
+
+.book-spine {
+  /* min-height: 50px; */
+  height: fit-content;
+  max-width: 150px;
+  width: fit-content;
+  outline: solid gray 2px;
+
+  /* randomise these values in react */
+  background-color: aqua;
+  margin-left: 40%;
+
+  padding: 0.2em 0.4em;
+}
