@@ -2,7 +2,7 @@
 
 /* FILE INPUT */
 .upload-page {
-  height: 100vh;
+  min-height: 100vh;
   font-family: var(--ff-primary);
   font-size: var(--fs-600);
 }
@@ -23,6 +23,8 @@
   justify-items: center;
   align-items: center;
   text-align: center;
+  align-content: center;
+  gap: 2rem;
   padding-inline: max(1rem, 20%);
   padding-block: 4rem;
   
@@ -39,8 +41,8 @@
   background-color: var(--clr-neutral-400);
 }
 
-#or-input-span span {
-  font-size: var(--fs-400);
+#text-input-span {
+  max-width: 32ch;
 }
 
 #file-input-symbol {
@@ -68,6 +70,7 @@ input.visually-hidden:is(:focus, :focus-within) + label {
   padding-top: 3rem;
   background-color: var(--clr-neutral-300);
   /* box-shadow: -5px 0px 10px 5px #EEE7D7; */
+  align-content: center;
 }
 
 .instructions h1 {
@@ -76,12 +79,14 @@ input.visually-hidden:is(:focus, :focus-within) + label {
 
 .instructions p {
   margin-bottom: 2rem;
+  max-width: 60ch;
 }
 
 .instructions ol {
   list-style: none;
   counter-reset: count;
   padding-left: 0;
+  max-width: 60ch;
 }
 
 .instructions ol li {
@@ -89,7 +94,7 @@ input.visually-hidden:is(:focus, :focus-within) + label {
 }
 
 .instructions ol li::before {
-  content: counter(count);
+  content: 'Step ' counter(count);
   display: block;
   color: var(--clr-neutral-100);
   font-weight: bold;
