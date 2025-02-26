@@ -114,15 +114,33 @@ export default function HomePage() {
             Browse Files
           </button>
         </label>
-          <span id="input-privacy-notice">
-            Note: Any data you upload is processed solely within your browser
-            and is not stored or transmitted by us in any way. We do not retain
-            or have access to your uploaded information.
-          </span>
+        <span id="input-privacy-notice">
+          Note: Any data you upload is processed solely within your browser and
+          is not stored or transmitted by us in any way. We do not retain or
+          have access to your uploaded information.
+        </span>
       </div>
 
-      <div className="instructions-content">
+      <div className="instructions">
         <h1>Get Started</h1>
+        <p>
+          Goodreads Visualiser takes your Goodreads library and finds some
+          interesting statistics about your reading habits. Follow the steps below to upload your
+          library and get started!
+        </p>
+
+        <ol className="flow">
+          <li>
+            On Goodreads, go to 'My Books' or click{" "}
+            <a className="link" target="_blank" href="https://www.goodreads.com/review/list/">this link</a> and then on the side bar, click 'Import/Export.'
+          </li>
+          <li>
+            Now click on 'Export Library.' Finally, when it appears, the generated link to download your Goodreads data.
+          </li>
+          <li>
+            Upload the file to this page and enjoy your Goodreads visualiser!
+          </li>
+        </ol>
       </div>
     </div>
   );

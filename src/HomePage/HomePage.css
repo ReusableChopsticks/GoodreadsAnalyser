@@ -1,9 +1,10 @@
 /* * { outline: 1px solid red; } */
 
+/* FILE INPUT */
 .upload-page {
   height: 100vh;
   font-family: var(--ff-primary);
-  font-size: var(--fs-400);
+  font-size: var(--fs-600);
 }
 
 .file-input-container {
@@ -33,6 +34,11 @@
   outline: 2px dashed var(--clr-neutral-800);
 }
 
+#file-input-label:hover {
+  transition: 0.2s;
+  background-color: var(--clr-neutral-400);
+}
+
 #or-input-span span {
   font-size: var(--fs-400);
 }
@@ -55,6 +61,42 @@ input.visually-hidden:is(:focus, :focus-within) + label {
   outline: thin dotted;
 }
 
+
+/* SIDE INSTRUCTIONS */
+.instructions {
+  padding-inline: max(1rem, 12%);
+  padding-top: 4rem;
+  background-color: var(--clr-neutral-300);
+  /* box-shadow: -5px 0px 10px 5px #EEE7D7; */
+}
+
+.instructions h1 {
+  font-weight: bold;
+}
+
+.instructions ol {
+  list-style: none;
+  counter-reset: count;
+  padding-left: 0;
+}
+
+.instructions ol li {
+  /* max-width: 40ch; */
+}
+
+.instructions ol li::before {
+  content: counter(count);
+  display: block;
+  color: var(--clr-neutral-100);
+  font-weight: bold;
+  padding-left: 0.3rem;
+  background-color: var(--clr-neutral-600);
+  max-width: 10rem;
+  border-radius: 0 100vw 100vw 0;
+  counter-increment: count;
+}
+
+/* move to component styling perhaps? */
 button {
   display: inline-flex;
   background-color: var(--clr-neutral-600);
