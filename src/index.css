@@ -1,0 +1,17 @@
+button {
+  display: inline-flex;
+  background-color: var(--clr-neutral-600);
+  font-family: var(--ff-secondary);
+  color: var(--clr-neutral-100);
+  border-color: transparent;
+  border-radius: 100vw;
+  text-decoration: none; /* Just in case there are links styles as buttons */
+  padding: 0.8em 1.5em;
+  box-shadow: 0 1.125em 1em -1em var(--clr-neutral-600);
+  text-align: center;
+}
+
+button:hover {
+  background-color: var(--clr-neutral-700);
+  transition: 0.2s;
+}
