@@ -16,6 +16,7 @@
     "react-icons": "^5.5.0",
     "react-papaparse": "^4.4.0",
     "react-router-dom": "^6.26.2",
+    "react-toastify": "^11.0.5",
     "use-file-picker": "^2.1.2"
   },
   "devDependencies": {

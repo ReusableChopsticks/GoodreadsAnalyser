@@ -4,6 +4,7 @@ import { DragEvent, useRef } from "react";
 import { GOODREADS_FIELDS, setData } from "../Data/repo";
 
 import { MdOutlineUploadFile } from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
 
 import "./HomePage.css";
 
@@ -34,15 +35,15 @@ export default function HomePage() {
     // if file uploaded is correct (a goodreads export) and not empty
     let valid = true;
     if (readData.data.length === 0) {
-      console.log("INVALID FILE: file is empty");
       valid = false;
+      toast.error("INVALID FILE: file is empty");
     }
     if (
       !readData.meta.fields.every(
         (field: string, index: number) => field === GOODREADS_FIELDS[index]
       )
     ) {
-      console.log(
+      toast.error(
         "INVALID FILE: fields do not match. Did you upload a different file by accident?"
       );
       valid = false;
@@ -62,7 +63,7 @@ export default function HomePage() {
       fileReader.readAsText(file);
     } else {
       // to be fair, I have no idea when this error would ever be triggered
-      console.log("INVALID FILE Try again with a different file");
+      toast.error("INVALID FILE Try again with a different file");
     }
   };
 
@@ -72,7 +73,7 @@ export default function HomePage() {
 
     const files = e.dataTransfer.files;
     if (files.length > 1) {
-      console.log("You may only upload one file at a time");
+      toast.error("ERROR: You may only upload one file at a time");
       return;
     }
 
@@ -122,6 +123,7 @@ export default function HomePage() {
       </div>
 
       <div className="instructions">
+      <ToastContainer />
         <h1>Get Started</h1>
         <p>
           Goodreads Visualiser takes your Goodreads library and finds some
