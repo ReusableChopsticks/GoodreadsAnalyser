@@ -43,6 +43,7 @@
 
   background-color: #FFF8EA;
   /* justify-self: center;   */
+  padding-top: 10rem;
 }
 
 .floor {
@@ -57,9 +58,15 @@
   width: fit-content;
   box-shadow: inset 0px -5px 5px 0px rgba(0,0,0,0.2);
 
-  /* randomise these values in react */
-  background-color: aqua;
-  margin-left: 40%;
-
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   padding: 0.2em 0.4em;
+}
+
+.spine-author {
+  font-size: 0.75rem;
+}
+.spine-title {
+  flex-grow: 1;
 }

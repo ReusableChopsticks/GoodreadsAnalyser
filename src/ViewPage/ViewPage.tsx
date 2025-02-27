@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getData, GoodreadsDataField } from "../Data/repo";
+import { getData, GoodreadsDataField, randomIntRange } from "../Data/repo";
 import { PAGE_HEIGHT_M } from "../Data/constants";
 
 import "./ViewPage.css";
@@ -8,23 +8,30 @@ import { useNavigate } from "react-router-dom";
 const MIN_INDENT = 4;
 const MAX_INDENT = 10;
 
-const randomIntRange = (min: number, max: number): number => {
-  return Math.random() * (max - min) + min;
+interface BookSpineProps {
+  hue: number;
+  title: string;
+  author: string;
 }
 
 const golden_ratio_conjugate = 0.618033988749895;
-const BookSpine = ({ children, hue }: {children: React.ReactNode, hue: number}) => {
+const BookSpine = ({
+  hue,
+  title,
+  author,
+}: BookSpineProps) => {
   // make sure hues are evenly spaced using the golden ratio
   // https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
-  
+
   const style: React.CSSProperties = {
     backgroundColor: `hsl(${hue},90%,90%)`,
-    marginLeft: (randomIntRange(MIN_INDENT, MAX_INDENT)).toString() + "rem",
-  }
-  
+    marginLeft: randomIntRange(MIN_INDENT, MAX_INDENT).toString() + "rem",
+  };
+
   return (
     <div className="book-spine" style={style}>
-      {children}
+      <span className="spine-author">{author}</span>
+      <span className="spine-title">{title}</span>
     </div>
   );
 };
@@ -33,12 +40,11 @@ export default function ViewPage() {
   const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
   const totalBooks = getTotalBookCount(books);
   const totalPages = getTotalPageCount(books);
-  
+
   const navigate = useNavigate();
-  
+
   // initial value for hue of book spine
   let h = Math.random();
-
 
   // load the data in on page load
   useEffect(() => {
@@ -48,58 +54,61 @@ export default function ViewPage() {
     // setbooks(getData());
   }, []);
 
-  return <div className="view-page | even-columns">
-    <div className="statistics-view | flow" style={{"--flow-spacer": "2rem"} as React.CSSProperties}>
-      <h1>Overall Statistics</h1>
+  return (
+    <div className="view-page | even-columns">
+      <div
+        className="statistics-view | flow"
+        style={{ "--flow-spacer": "2rem" } as React.CSSProperties}
+      >
+        <h1>Overall Statistics</h1>
 
-      <label htmlFor="filter-shelf">
-        Filter by shelf
-        <select id="filter-shelf">
-          <option value="read">read</option>
-          <option value="read">GENERATE BASED ON SHELVES</option>
-        </select>
-      </label>
-      
-      <div className="stat-columns | even-columns">
-        <div className="total-pages">
-          <h2>Total pages read</h2>
-          <span>{getTotalPageCount(books)}</span>
-        </div>
-        <div className="total-books">
-          <h2>Total books read</h2>
-          <span>{getTotalBookCount(books)}</span>
-        </div>
-        <div className="avg-pages">
-          <h2>Average book length</h2>
-          <span>{"placeholder"}</span>
-        </div>
-        <div className="avg-stars">
-          <h2>Average star rating</h2>
-          <span>{getAverageStarRating(books).toFixed(2)}</span>
-        </div>
-        <div className="avg-read-time">
-          <h2>Average read time</h2>
-          <span>{getAverageReadTime(books).toFixed() + " days"}</span>
+        <label htmlFor="filter-shelf">
+          Filter by shelf
+          <select id="filter-shelf">
+            <option value="all">all</option>
+            <option value="read">read</option>
+            <option value="TODO">GENERATE BASED ON SHELVES</option>
+          </select>
+        </label>
+
+        <div className="stat-columns | even-columns">
+          <div className="total-pages">
+            <h2>Total pages read</h2>
+            <span>{getTotalPageCount(books)}</span>
+          </div>
+          <div className="total-books">
+            <h2>Total books read</h2>
+            <span>{getTotalBookCount(books)}</span>
+          </div>
+          <div className="avg-pages">
+            <h2>Average book length</h2>
+            <span>{"placeholder"}</span>
+          </div>
+          <div className="avg-stars">
+            <h2>Average star rating</h2>
+            <span>{getAverageStarRating(books).toFixed(2)}</span>
+          </div>
+          <div className="avg-read-time">
+            <h2>Average read time</h2>
+            <span>{getAverageReadTime(books).toFixed() + " days"}</span>
+          </div>
         </div>
 
+        <button onClick={() => navigate("/")}>Back</button>
       </div>
-
-      <button onClick={() => navigate("/")}>Back</button>
-    </div>
-    <div className="book-tower">
-      {/* <span>Your book tower is: </span>
+      <div className="book-tower">
+        {/* <span>Your book tower is: </span>
       <span>not tall enough</span> */}
-      <div className="floor" />
-      {books.map((book) => {
-        // keep adding the golden ratio so similar colours do not appear next to each other
-        h += golden_ratio_conjugate;
-        h %= 1;
-        return (
-          <BookSpine hue={h*360}>{book.Title}</BookSpine>
-        )
-      })}
+        <div className="floor" />
+        {books.map((book) => {
+          // keep adding the golden ratio so similar colours do not appear next to each other
+          h += golden_ratio_conjugate;
+          h %= 1;
+          return <BookSpine hue={h * 360} title={book.Title} author={book.Author}/>;
+        })}
+      </div>
     </div>
-  </div>;
+  );
 }
 
 const getTotalBookCount = (data: GoodreadsDataField[]) => {
@@ -166,7 +175,7 @@ const processDateString = (dateString: string): Date => {
   let split = dateString.split("/");
   // Date requires the string formatted as YYYY-MM-DD to work
   return new Date(`${split[2]}-${split[1]}-${split[0]}`);
-}
+};
 
 /**
  *
@@ -176,7 +185,6 @@ const processDateString = (dateString: string): Date => {
 const getAverageReadTime = (data: GoodreadsDataField[]): number => {
   let validBooks = 0;
   const totalReadTime = data.reduce((total, book) => {
-
     console.log(book.Title);
     // if both dates not set, do not add to total
     if (!book["Date Added"] || !book["Date Read"]) {
@@ -190,7 +198,6 @@ const getAverageReadTime = (data: GoodreadsDataField[]): number => {
     const diffTime = Math.abs(dateRead.getTime() - dateAdded.getTime());
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-
     validBooks += 1;
     return total + diffDays;
   }, 0);
@@ -198,6 +205,8 @@ const getAverageReadTime = (data: GoodreadsDataField[]): number => {
   console.log(`validBooks: ${validBooks}`);
   console.log(`totalReadTime: ${totalReadTime}`);
 
-  if (validBooks === 0) { return 0; }
+  if (validBooks === 0) {
+    return 0;
+  }
   return Math.ceil(totalReadTime / validBooks);
 };
