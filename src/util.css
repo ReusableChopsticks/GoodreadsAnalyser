@@ -64,6 +64,7 @@
 /* 
   adds top margin to every sibling except the first
   used for spacing
+  You can define a --flow-spacer variable in the style attribute of an element 
 */
 .flow > * + * {
   margin-top: var(--flow-spacer, 1em);

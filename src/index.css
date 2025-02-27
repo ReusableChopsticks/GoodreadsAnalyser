@@ -1,3 +1,8 @@
+#root {
+  font-family: var(--ff-primary);
+  font-size: var(--fs-600);
+}
+
 button {
   display: inline-flex;
   background-color: var(--clr-neutral-600);

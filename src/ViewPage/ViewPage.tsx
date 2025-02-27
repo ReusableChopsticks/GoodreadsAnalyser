@@ -21,7 +21,7 @@ export default function ViewPage() {
   }, []);
 
   return <div className="view-page | even-columns">
-    <div className="statistics-view">
+    <div className="statistics-view | flow" style={{"--flow-spacer": "2rem"} as React.CSSProperties}>
       <h1>Overall Statistics</h1>
 
       <label htmlFor="filter-shelf">

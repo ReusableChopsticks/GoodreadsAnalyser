@@ -3,8 +3,6 @@
 /* FILE INPUT */
 .upload-page {
   min-height: 100vh;
-  font-family: var(--ff-primary);
-  font-size: var(--fs-600);
 }
 
 .file-input-container {

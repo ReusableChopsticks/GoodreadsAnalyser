@@ -5,6 +5,17 @@
   min-height: 100vh;
 }
 
+.view-page h1, h2 {
+  font-weight: bold;
+}
+
+.view-page h1 {
+  font-size: 2.5rem;
+}
+.view-page h2 {
+  font-size: 1.5rem;
+}
+
 .statistics-view, .book-tower {
   margin-inline: 2rem;
   outline: solid #EEEE 2px;
@@ -15,6 +26,10 @@
 .statistics-view {
   padding-inline: 3rem;
   padding-top: 2rem;
+}
+
+.stat-columns {
+  gap: 1.5rem;
 }
 
 /* BOOK TOWER */
