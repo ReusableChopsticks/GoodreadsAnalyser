@@ -3,6 +3,8 @@
 
 .view-page {
   min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1.618fr;
 }
 
 .view-page h1, h2 {
@@ -16,14 +18,12 @@
   font-size: 1.5rem;
 }
 
-.statistics-view, .book-tower {
-  margin-inline: 2rem;
-  outline: solid #EEEE 2px;
-}
 
 
 /* STATISTICS */
 .statistics-view {
+  outline: solid #EEEE 2px;
+  margin-inline: 2rem;
   padding-inline: 3rem;
   padding-top: 2rem;
 }
@@ -31,6 +31,8 @@
 .stat-columns {
   gap: 1.5rem;
 }
+
+
 
 /* BOOK TOWER */
 
@@ -55,6 +57,7 @@
   /* min-height: 50px; */
   /* height: fit-content; */
   --width: 70%;
+  aspect-ratio: 1.5/ 1;
   max-width: var(--width);
   min-width: var(--width);
   box-shadow: inset 0px -5px 5px 0px rgba(0,0,0,0.2);
@@ -69,5 +72,6 @@
   font-size: 0.75rem;
 }
 .spine-title {
+  text-align: center;
   flex-grow: 1;
 }

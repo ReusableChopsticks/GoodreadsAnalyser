@@ -5,18 +5,19 @@ import { PAGE_HEIGHT_M, PX_PER_PAGE } from "../Data/constants";
 import "./ViewPage.css";
 import { useNavigate } from "react-router-dom";
 
-const MIN_INDENT = 4;
-const MAX_INDENT = 10;
 
 interface BookSpineProps {
-  hue: number;
+  // h is a number between [0, 1] evenly spaced by the golden ratio
+  h: number;
   title: string;
   author: string;
   pages: number;
 }
 
+const MIN_INDENT = 5;
+const MAX_INDENT = 25;
 const golden_ratio_conjugate = 0.618033988749895;
-const BookSpine = ({ hue, title, author, pages }: BookSpineProps) => {
+const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
   // make sure hues are evenly spaced using the golden ratio
   // https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
   
@@ -24,11 +25,12 @@ const BookSpine = ({ hue, title, author, pages }: BookSpineProps) => {
   // TODO: make this a feature!!!!!
   // const height = pages * PX_PER_PAGE;
   
-  const height = pages * 0.2;
+  // this number looks more pleasant. Make a slider for these values [0.15, pages * PX_PER_PAGE]
+  const height = pages * 0.18;
 
   const style: React.CSSProperties = {
-    backgroundColor: `hsl(${hue},90%,90%)`,
-    marginLeft: randomIntRange(MIN_INDENT, MAX_INDENT).toString() + "rem",
+    backgroundColor: `hsl(${h*360},90%,90%)`,
+    marginLeft: h * (MAX_INDENT - MIN_INDENT) + MIN_INDENT + "%",
     minHeight: `${height}px`,
     maxHeight: `${height}px`,
   };
@@ -60,7 +62,7 @@ export default function ViewPage() {
   }, []);
 
   return (
-    <div className="view-page | even-columns">
+    <div className="view-page">
       <div
         className="statistics-view | flow"
         style={{ "--flow-spacer": "2rem" } as React.CSSProperties}
@@ -108,7 +110,7 @@ export default function ViewPage() {
           h += golden_ratio_conjugate;
           h %= 1;
           return (
-            <BookSpine hue={h * 360} title={book.Title} author={book.Author} pages={book["Number of Pages"]}/>
+            <BookSpine h={h} title={book.Title} author={book.Author} pages={book["Number of Pages"]}/>
           );
         })}
       </div>
