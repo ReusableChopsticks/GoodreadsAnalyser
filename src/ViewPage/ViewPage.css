@@ -59,22 +59,21 @@
 }
 
 .book-spine {
-  /* min-height: 50px; */
-  /* height: fit-content; */
-  --width: 70%;
-  aspect-ratio: 1.5/ 1;
-  max-width: var(--width);
-  min-width: var(--width);
+  width: fit-content;
+  min-width: 500px;
   box-shadow: inset 0px -5px 5px 0px rgba(0,0,0,0.2);
 
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: 0.2em 0.4em;
+
+  /* overflow-y: clip; */
 }
 
 .spine-author {
   font-size: 0.75rem;
+  /* width: fit-content; */
 }
 .spine-title {
   text-align: center;

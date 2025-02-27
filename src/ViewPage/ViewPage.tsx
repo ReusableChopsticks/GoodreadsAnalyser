@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getData, GoodreadsDataField, randomIntRange } from "../Data/repo";
+import { clamp, getData, GoodreadsDataField, randomIntRange } from "../Data/repo";
 import { PAGE_HEIGHT_M, PX_PER_PAGE } from "../Data/constants";
 
 import "./ViewPage.css";
@@ -14,8 +14,13 @@ interface BookSpineProps {
   pages: number;
 }
 
+/**
+ * TODO: find a better way to calculate indent
+ */
 const MIN_INDENT = 5;
 const MAX_INDENT = 25;
+const MIN_TITLE_FONT_SIZE_PX = 12;
+const MAX_TITLE_FONT_SIZE_PX = 24;
 const golden_ratio_conjugate = 0.618033988749895;
 const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
   // make sure hues are evenly spaced using the golden ratio
@@ -28,17 +33,22 @@ const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
   // this number looks more pleasant. Make a slider for these values [0.15, pages * PX_PER_PAGE]
   const height = pages * 0.18;
 
-  const style: React.CSSProperties = {
+  const spineStyle: React.CSSProperties = {
     backgroundColor: `hsl(${h*360},90%,90%)`,
     marginLeft: h * (MAX_INDENT - MIN_INDENT) + MIN_INDENT + "%",
     minHeight: `${height}px`,
     maxHeight: `${height}px`,
   };
 
+  // adjust title font size based on height of spine so it should generally all fit
+  const titleStyle: React.CSSProperties = {
+    fontSize: `${clamp(height * 0.3, MIN_TITLE_FONT_SIZE_PX, MAX_TITLE_FONT_SIZE_PX)}px`,
+  }
+
   return (
-    <div className="book-spine" style={style}>
+    <div className="book-spine" style={spineStyle}>
       <span className="spine-author">{author}</span>
-      <span className="spine-title">{title}</span>
+      <span className="spine-title" style={titleStyle}>{title}</span>
     </div>
   );
 };

@@ -108,3 +108,5 @@ export {
 export const randomIntRange = (min: number, max: number): number => {
   return Math.random() * (max - min) + min;
 }
+
+export const clamp = (x: number, min: number, max: number): number => Math.max( min, Math.min(x, max) );
