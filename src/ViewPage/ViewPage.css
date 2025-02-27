@@ -2,9 +2,10 @@
 /* * {outline: solid red 1px} */
 
 .view-page {
-  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1.618fr;
+  /* max-height: 100vh; */
+  /* overflow-y: auto; */
 }
 
 .view-page h1, h2 {
@@ -22,10 +23,14 @@
 
 /* STATISTICS */
 .statistics-view {
+  max-height: 100vh;
+
   outline: solid #EEEE 2px;
-  margin-inline: 2rem;
+  margin-inline: 1rem;
   padding-inline: 3rem;
   padding-top: 2rem;
+
+  overflow-y: scroll;
 }
 
 .stat-columns {
