@@ -41,7 +41,7 @@
   display: flex;
   flex-direction: column-reverse;
 
-  background-color: #FFF8EA;
+  background: linear-gradient(#FFF8EA, #ffe3a7);
   /* top padding so theres space at the top of the book stack */
   padding-top: 10rem;
 }
@@ -54,8 +54,9 @@
 .book-spine {
   /* min-height: 50px; */
   /* height: fit-content; */
-  max-width: 300px;
-  min-width: 300px;
+  --width: 70%;
+  max-width: var(--width);
+  min-width: var(--width);
   box-shadow: inset 0px -5px 5px 0px rgba(0,0,0,0.2);
 
   display: flex;

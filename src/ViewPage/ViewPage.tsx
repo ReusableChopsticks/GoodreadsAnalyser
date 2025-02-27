@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getData, GoodreadsDataField, randomIntRange } from "../Data/repo";
-import { PAGE_HEIGHT_M } from "../Data/constants";
+import { PAGE_HEIGHT_M, PX_PER_PAGE } from "../Data/constants";
 
 import "./ViewPage.css";
 import { useNavigate } from "react-router-dom";
@@ -19,8 +19,12 @@ const golden_ratio_conjugate = 0.618033988749895;
 const BookSpine = ({ hue, title, author, pages }: BookSpineProps) => {
   // make sure hues are evenly spaced using the golden ratio
   // https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
-  const PAGE_TO_PX_RATIO = 0.1;
-  const height = pages * PAGE_TO_PX_RATIO;
+  
+  // for fun, this makes the display to scale!
+  // TODO: make this a feature!!!!!
+  // const height = pages * PX_PER_PAGE;
+  
+  const height = pages * 0.2;
 
   const style: React.CSSProperties = {
     backgroundColor: `hsl(${hue},90%,90%)`,

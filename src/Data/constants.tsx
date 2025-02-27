@@ -1,4 +1,6 @@
 export const PAGE_HEIGHT_M = 0.00007; // in meters
+export const PX_PER_MM = 0.000026;
+export const PX_PER_PAGE = PX_PER_MM / PAGE_HEIGHT_M;
 
 type HeightComparisonObject = { height: number, name: string, description: string }
 
