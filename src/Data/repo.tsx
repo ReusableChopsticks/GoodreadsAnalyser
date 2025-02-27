@@ -66,7 +66,7 @@ const clearData = (): void => {
 }
 
 /**
- * Removes any text from book titles that are in parenthesis
+ * Removes any text from book titles that are in parenthesis or after a hyphen (—)
  * @param data an array of goodreads fields
  * @returns the same array but titles are cleaned
  */

@@ -53,9 +53,9 @@
 
 .book-spine {
   /* min-height: 50px; */
-  height: fit-content;
+  /* height: fit-content; */
   max-width: 300px;
-  width: fit-content;
+  min-width: 300px;
   box-shadow: inset 0px -5px 5px 0px rgba(0,0,0,0.2);
 
   display: flex;

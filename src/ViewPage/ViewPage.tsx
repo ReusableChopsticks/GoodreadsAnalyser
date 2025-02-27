@@ -12,20 +12,21 @@ interface BookSpineProps {
   hue: number;
   title: string;
   author: string;
+  pages: number;
 }
 
 const golden_ratio_conjugate = 0.618033988749895;
-const BookSpine = ({
-  hue,
-  title,
-  author,
-}: BookSpineProps) => {
+const BookSpine = ({ hue, title, author, pages }: BookSpineProps) => {
   // make sure hues are evenly spaced using the golden ratio
   // https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+  const PAGE_TO_PX_RATIO = 0.1;
+  const height = pages * PAGE_TO_PX_RATIO;
 
   const style: React.CSSProperties = {
     backgroundColor: `hsl(${hue},90%,90%)`,
     marginLeft: randomIntRange(MIN_INDENT, MAX_INDENT).toString() + "rem",
+    minHeight: `${height}px`,
+    maxHeight: `${height}px`,
   };
 
   return (
@@ -97,14 +98,14 @@ export default function ViewPage() {
         <button onClick={() => navigate("/")}>Back</button>
       </div>
       <div className="book-tower">
-        {/* <span>Your book tower is: </span>
-      <span>not tall enough</span> */}
         <div className="floor" />
         {books.map((book) => {
           // keep adding the golden ratio so similar colours do not appear next to each other
           h += golden_ratio_conjugate;
           h %= 1;
-          return <BookSpine hue={h * 360} title={book.Title} author={book.Author}/>;
+          return (
+            <BookSpine hue={h * 360} title={book.Title} author={book.Author} pages={book["Number of Pages"]}/>
+          );
         })}
       </div>
     </div>
