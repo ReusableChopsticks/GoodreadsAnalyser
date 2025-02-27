@@ -53,9 +53,9 @@
 .book-spine {
   /* min-height: 50px; */
   height: fit-content;
-  max-width: 150px;
+  max-width: 300px;
   width: fit-content;
-  outline: solid gray 2px;
+  box-shadow: inset 0px -5px 5px 0px rgba(0,0,0,0.2);
 
   /* randomise these values in react */
   background-color: aqua;

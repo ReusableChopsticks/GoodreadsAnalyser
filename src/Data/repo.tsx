@@ -66,7 +66,7 @@ const clearData = (): void => {
 }
 
 /**
- * 
+ * Removes any text from book titles that are in parenthesis
  * @param data an array of goodreads fields
  * @returns the same array but titles are cleaned
  */
@@ -80,8 +80,8 @@ const processData = (data: GoodreadsDataField[]) => {
 
   // process the title: remove brackets and colons
   processed = processed.map(field => {
-    // Use regular expression to match everything after '(' or ':' and remove it
-    const cleanedTitle = field.Title.replace(/[:\(].*$/, '').trim();
+    // Use regular expression to match everything after '(' and remove it
+    const cleanedTitle = field.Title.replace(/[\(].*$/, '').trim();
     console.log(cleanedTitle);
 
     // Return a new object with the cleaned title while preserving other properties

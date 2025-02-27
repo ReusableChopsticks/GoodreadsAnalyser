@@ -5,12 +5,40 @@ import { PAGE_HEIGHT_M } from "../Data/constants";
 import "./ViewPage.css";
 import { useNavigate } from "react-router-dom";
 
+const MIN_INDENT = 4;
+const MAX_INDENT = 10;
+
+const randomIntRange = (min: number, max: number): number => {
+  return Math.random() * (max - min) + min;
+}
+
+const golden_ratio_conjugate = 0.618033988749895;
+const BookSpine = ({ children, hue }: {children: React.ReactNode, hue: number}) => {
+  // make sure hues are evenly spaced using the golden ratio
+  // https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+  
+  const style: React.CSSProperties = {
+    backgroundColor: `hsl(${hue},90%,90%)`,
+    marginLeft: (randomIntRange(MIN_INDENT, MAX_INDENT)).toString() + "rem",
+  }
+  
+  return (
+    <div className="book-spine" style={style}>
+      {children}
+    </div>
+  );
+};
+
 export default function ViewPage() {
   const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
   const totalBooks = getTotalBookCount(books);
   const totalPages = getTotalPageCount(books);
-
+  
   const navigate = useNavigate();
+  
+  // initial value for hue of book spine
+  let h = Math.random();
+
 
   // load the data in on page load
   useEffect(() => {
@@ -62,19 +90,14 @@ export default function ViewPage() {
       {/* <span>Your book tower is: </span>
       <span>not tall enough</span> */}
       <div className="floor" />
-      <div className="book-spine">hello world nice to see you</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello world</div> 
-      <div className="book-spine">hello</div> 
+      {books.map((book) => {
+        // keep adding the golden ratio so similar colours do not appear next to each other
+        h += golden_ratio_conjugate;
+        h %= 1;
+        return (
+          <BookSpine hue={h*360}>{book.Title}</BookSpine>
+        )
+      })}
     </div>
   </div>;
 }
