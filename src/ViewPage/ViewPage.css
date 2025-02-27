@@ -42,7 +42,7 @@
   flex-direction: column-reverse;
 
   background-color: #FFF8EA;
-  /* justify-self: center;   */
+  /* top padding so theres space at the top of the book stack */
   padding-top: 10rem;
 }
 

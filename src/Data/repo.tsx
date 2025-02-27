@@ -81,7 +81,7 @@ const processData = (data: GoodreadsDataField[]) => {
   // process the title: remove brackets and colons
   processed = processed.map(field => {
     // Use regular expression to match everything after '(' and remove it
-    const cleanedTitle = field.Title.replace(/[\(].*$/, '').trim();
+    const cleanedTitle = field.Title.replace(/[—\(].*$/, '').trim();
     console.log(cleanedTitle);
 
     // Return a new object with the cleaned title while preserving other properties

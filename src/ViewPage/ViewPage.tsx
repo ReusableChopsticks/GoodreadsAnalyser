@@ -168,32 +168,21 @@ const getBookStackHeight = (totalPages: number): number => {
 };
 
 /**
- * @param dateString date string formatted as DD/MM/YYYY
- * @returns the time as a date object
- */
-const processDateString = (dateString: string): Date => {
-  let split = dateString.split("/");
-  // Date requires the string formatted as YYYY-MM-DD to work
-  return new Date(`${split[2]}-${split[1]}-${split[0]}`);
-};
-
-/**
- *
+ * Gets the average time it takes for a book added to a shelf to be read
  * @param data book list
  * @returns average time in days to read a book
  */
 const getAverageReadTime = (data: GoodreadsDataField[]): number => {
   let validBooks = 0;
   const totalReadTime = data.reduce((total, book) => {
-    console.log(book.Title);
     // if both dates not set, do not add to total
     if (!book["Date Added"] || !book["Date Read"]) {
       return total;
     }
 
     // find the time difference in days
-    const dateAdded = processDateString(book["Date Added"]);
-    const dateRead = processDateString(book["Date Read"]);
+    const dateAdded = new Date(book["Date Added"].replace("/", "-"));
+    const dateRead = new Date(book["Date Read"].replace("/", "-"));
 
     const diffTime = Math.abs(dateRead.getTime() - dateAdded.getTime());
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
