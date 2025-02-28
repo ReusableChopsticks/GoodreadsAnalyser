@@ -116,6 +116,9 @@ export default function ViewPage() {
 
         <button onClick={() => navigate("/")}>Back</button>
       </div>
+
+{/* ############################################## */}
+
       <div className="book-tower">
         <div className="floor" />
         {books.map((book) => {
@@ -126,6 +129,11 @@ export default function ViewPage() {
             <BookSpine h={h} title={book.Title} author={book.Author} pages={book["Number of Pages"]}/>
           );
         })}
+
+
+        <div className="height-display">
+          Your tower is high
+        </div>
       </div>
     </div>
   );
