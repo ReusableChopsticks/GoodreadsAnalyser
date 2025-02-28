@@ -13,10 +13,10 @@
 }
 
 .view-page h1 {
-  font-size: 2.5rem;
+  font-size: var(--fs-heading);
 }
 .view-page h2 {
-  font-size: 1.5rem;
+  font-size: var(--fs-sub-heading);
 }
 
 
@@ -83,13 +83,10 @@
   align-items: center;
   gap: 1rem;
   padding: 0.2em 0.4em;
-
-  /* overflow-y: clip; */
 }
 
 .spine-author {
-  font-size: 0.75rem;
-  /* width: fit-content; */
+  font-size: var(--fs-small);
 }
 .spine-title {
   text-align: center;

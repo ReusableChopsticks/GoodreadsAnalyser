@@ -1,6 +1,6 @@
 #root {
   font-family: var(--ff-primary);
-  font-size: var(--fs-600);
+  font-size: var(--fs-body);
 }
 
 button {

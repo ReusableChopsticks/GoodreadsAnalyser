@@ -88,6 +88,7 @@ export default function ViewPage() {
             <option key="all" value="all">all</option>
             {shelves.map((shelf) => <option key={shelf} value={shelf}>{shelf}</option>)}
           </select>
+
         </label>
 
         <div className="stat-columns | even-columns">

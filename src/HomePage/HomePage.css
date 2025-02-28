@@ -27,10 +27,14 @@
   padding-block: 4rem;
   
   font-weight: bold;
-  font-size: var(--fs-600);
+  font-size: var(--fs-subheading);
   background-color: var(--clr-neutral-200);
   border-radius: 1rem;
   outline: 2px dashed var(--clr-neutral-800);
+}
+
+#file-input-label button {
+  font-weight: initial;
 }
 
 #file-input-label:hover {
@@ -49,7 +53,7 @@
 }
 
 #input-privacy-notice {
-  font-size: small;
+  font-size: var(--fs-small);
   font-weight: 100;
   align-self: flex-end;
 }
@@ -64,9 +68,8 @@ input.visually-hidden:is(:focus, :focus-within) + label {
 /* SIDE INSTRUCTIONS */
 .instructions {
   padding-inline: max(1rem, 12%);
-  padding-top: 3rem;
   background-color: var(--clr-neutral-300);
-  /* box-shadow: -5px 0px 10px 5px #EEE7D7; */
+  
   align-content: center;
 }
 
@@ -86,16 +89,23 @@ input.visually-hidden:is(:focus, :focus-within) + label {
   max-width: 60ch;
 }
 
+.instructions ol li {
+  margin-bottom: 1.2rem;
+}
+
 .instructions ol li::before {
   content: 'Step ' counter(count);
   display: block;
   color: var(--clr-neutral-100);
+  font-family: var(--ff-secondary);
   font-weight: bold;
   font-size: larger;
   padding-left: 0.75rem;
+  padding-block: 0.2rem;
+  margin-bottom: .2rem;
   background-color: var(--clr-neutral-600);
 
-  max-width: 10rem;
+  max-width: 15rem;
   border-radius: 0 100vw 100vw 0;
   counter-increment: count;
 }
