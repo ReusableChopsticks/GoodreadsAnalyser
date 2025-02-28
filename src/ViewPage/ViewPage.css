@@ -25,19 +25,33 @@
 .statistics-view {
   max-height: 100vh;
 
-  outline: solid #EEEE 2px;
+  outline: solid #ddd 2px;
   margin-inline: 1rem;
-  padding-inline: 3rem;
+  padding-inline: 2rem;
   padding-top: 2rem;
 
   overflow-y: scroll;
 }
 
 .stat-columns {
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
+.statistics-view label {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 0.5rem;
+  font-weight: bold;
+}
 
+.statistics-view label select {
+  outline: solid var(--clr-neutral-600) 2px;
+  border-color: transparent;
+  border-radius: 5px;
+  padding: 0.2rem .5rem;
+  font-weight: lighter;
+}
 
 /* BOOK TOWER */
 

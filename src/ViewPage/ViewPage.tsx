@@ -54,8 +54,9 @@ const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
 
 export default function ViewPage() {
   const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
+  const [totalPageCount] = useState<number>(getTotalPageCount(books));
 
-  const [shelves, setShelves] = useState<string[]>([...new Set(books.map(book => book["Exclusive Shelf"]))])
+  const [shelves] = useState<string[]>([...new Set(books.map(book => book["Exclusive Shelf"]))])
 
   const navigate = useNavigate();
 
@@ -84,26 +85,26 @@ export default function ViewPage() {
         <label htmlFor="filter-shelf">
           Filter by shelf
           <select onChange={handleShelfChange} id="filter-shelf">
-            <option value="all">all</option>
-            {shelves.map((shelf) => <option value={shelf}>{shelf}</option>)}
+            <option key="all" value="all">all</option>
+            {shelves.map((shelf) => <option key={shelf} value={shelf}>{shelf}</option>)}
           </select>
         </label>
 
         <div className="stat-columns | even-columns">
           <div className="total-pages">
             <h2>Total pages read</h2>
-            <span>{getTotalPageCount(books)}</span>
+            <span>{totalPageCount.toLocaleString() + " pages"}</span>
           </div>
           <div className="total-books">
             <h2>Total books read</h2>
             <span>{getTotalBookCount(books)}</span>
           </div>
           <div className="avg-pages">
-            <h2>Average book length</h2>
-            <span>{"placeholder"}</span>
+            <h2>Average page count</h2>
+            <span>{(totalPageCount / books.length).toFixed() + " pages"}</span>
           </div>
           <div className="avg-stars">
-            <h2>Average star rating</h2>
+            <h2>Average star rating given</h2>
             <span>{getAverageStarRating(books).toFixed(2)}</span>
           </div>
           <div className="avg-read-time">
