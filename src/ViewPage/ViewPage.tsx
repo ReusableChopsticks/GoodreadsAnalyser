@@ -23,10 +23,9 @@ const MIN_TITLE_FONT_SIZE_PX = 12;
 const MAX_TITLE_FONT_SIZE_PX = 24;
 const golden_ratio_conjugate = 0.618033988749895;
 const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
-  // make sure hues are evenly spaced using the golden ratio
-  // https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+  // make sure hues are evenly spaced using the golden ratio, following [https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/]
   
-  // for fun, this makes the display to scale!
+  // for fun, this line makes the book heights to scale!
   // TODO: make this a feature!!!!!
   // const height = pages * PX_PER_PAGE;
   
@@ -54,11 +53,25 @@ const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
 };
 
 export default function ViewPage() {
-  const [books, setBooks] = useState<GoodreadsDataField[]>(getData().reverse());
+  const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
+
+  const [shelves, setShelves] = useState<string[]>([...new Set(books.map(book => book["Exclusive Shelf"]))])
+
   const navigate = useNavigate();
 
   // initial value for hue of book spine
   let h = Math.random();
+
+  const handleShelfChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "all") {
+      setBooks(getData());
+    } else {
+      const filtered = getData().filter((book) => {
+        return book["Exclusive Shelf"] === e.target.value;
+      });
+      setBooks(filtered);
+    }
+  }
 
   return (
     <div className="view-page">
@@ -70,10 +83,9 @@ export default function ViewPage() {
 
         <label htmlFor="filter-shelf">
           Filter by shelf
-          <select id="filter-shelf">
+          <select onChange={handleShelfChange} id="filter-shelf">
             <option value="all">all</option>
-            <option value="read">read</option>
-            <option value="TODO">GENERATE BASED ON SHELVES</option>
+            {shelves.map((shelf) => <option value={shelf}>{shelf}</option>)}
           </select>
         </label>
 
@@ -196,9 +208,6 @@ const getAverageReadTime = (data: GoodreadsDataField[]): number => {
     validBooks += 1;
     return total + diffDays;
   }, 0);
-
-  console.log(`validBooks: ${validBooks}`);
-  console.log(`totalReadTime: ${totalReadTime}`);
 
   if (validBooks === 0) {
     return 0;

@@ -55,7 +55,7 @@ export const GOODREADS_FIELDS = [
 ]
 
 const setData = (data: GoodreadsDataField[]): void => {
-  localStorage.setItem(DATA_KEY, JSON.stringify(processData(data)));
+  localStorage.setItem(DATA_KEY, JSON.stringify(processData(data).reverse()));
 }
 const getData = (): GoodreadsDataField[] => {
   const data = localStorage.getItem(DATA_KEY);
