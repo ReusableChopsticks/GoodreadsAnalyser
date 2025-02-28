@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   clamp,
   getData,
+  GOODREADS_FIELDS,
   GoodreadsDataField,
   randomIntRange,
 } from "../Data/repo";
@@ -78,9 +79,16 @@ export default function ViewPage() {
 
   const bookTowerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
+  
   // initial value for hue of book spine
   let h = Math.random();
+  
+  useEffect(() => {
+    const onInitialLoad = () => {
+      bookTowerRef.current?.scrollTo({top: -bookTowerRef.current?.scrollHeight, behavior: "instant"})
+    }
+    onInitialLoad();
+  }, [])
 
   const handleShelfChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "all") {
@@ -92,6 +100,20 @@ export default function ViewPage() {
       setBooks(filtered);
     }
   };
+
+  type bookType = keyof GoodreadsDataField;
+  const sortByOptions = ["Date Added", "Title", "Author", "Average Rating"];
+  const handleSortBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setBooks(books.toSorted((a, b) => {
+      if (a[e.target.value as bookType] > b[e.target.value as bookType]) {
+        return -1;
+      }
+      if (b[e.target.value as bookType] > a[e.target.value as bookType]) {
+          return 1;
+      }
+      return 0;
+    }))
+  }
 
   return (
     <div className="view-page">
@@ -115,13 +137,24 @@ export default function ViewPage() {
           </select>
         </label>
 
+        <label htmlFor="sort-by">
+          Sort by
+          <select onChange={handleSortBy} id="sort-by">
+            {
+              sortByOptions.map((sortOption) => {
+                return <option key={sortOption} value={sortOption}>{sortOption}</option>
+              })
+            }
+          </select>
+        </label>
+
         <div className="stat-columns | even-columns">
           <div className="total-pages">
-            <h2>Total pages read</h2>
+            <h2>Total pages</h2>
             <span>{totalPageCount.toLocaleString() + " pages"}</span>
           </div>
           <div className="total-books">
-            <h2>Total books read</h2>
+            <h2>Total books</h2>
             <span>{getTotalBookCount(books)}</span>
           </div>
           <div className="avg-pages">
@@ -141,7 +174,7 @@ export default function ViewPage() {
         <button onClick={() => navigate("/")}>Back</button>
       </div>
 
-      {/* ############################################## */}
+{/* ####################################### */}
 
       <div className="book-tower" ref={bookTowerRef}>
         <div className="scroll-shortcuts">
@@ -175,7 +208,7 @@ export default function ViewPage() {
           <p style={{ fontSize: "2rem" }}>{`${getBookStackHeight(
             totalPageCount
           ).toFixed(2)}m tall`}</p>
-          <p style={{ fontSize: "1rem" }}>{`... which is about taller than ${
+          <p style={{ fontSize: "1rem" }}>{`... which is taller than ${
             getHeightComparison(getBookStackHeight(totalPageCount)).name
           }`}</p>
           {/* <p className="fs-small">{getHeightComparison(stackHeight).description}</p> */}
@@ -277,17 +310,9 @@ const getAverageReadTime = (data: GoodreadsDataField[]): number => {
  * @returns the first object which is smaller than your book stack
  */
 const getHeightComparison = (height: number): HeightComparisonObject => {
-  // let i = HEIGHT_COMPARISONS.indexOf(());
-  // let i = 0;
-  // console.log("############");
-  // console.log(height);
-  // console.log(height < HEIGHT_COMPARISONS[i].height);
-  // while (height < HEIGHT_COMPARISONS[i].height) {
-  //   i++;
-  // }
   for (let i = 0; i < HEIGHT_COMPARISONS.length; i++) {
     if (height < HEIGHT_COMPARISONS[i].height) {
-      return HEIGHT_COMPARISONS[i];
+      return HEIGHT_COMPARISONS[i - 1];
     }
   }
   return HEIGHT_COMPARISONS[-1];

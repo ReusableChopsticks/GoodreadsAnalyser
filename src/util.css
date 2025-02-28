@@ -9,7 +9,7 @@
   --clr-neutral-700: #bc8763;
   --clr-neutral-800: #8A827B;
   --clr-neutral-900: #262422;
-  
+
   /* font family */
   --ff-primary: "Libre Calson Text", serif;
   --ff-secondary: "Libre Franklin", sans-serif;
@@ -24,15 +24,30 @@
 .ff-primary {
   font-family: var(--ff-primary);
 }
+
 .ff-secondary {
   font-family: var(--ff-secondary);
 }
 
-.fs-small { font-size: var(--fs-small) };
-.fs-medium { font-size: var(--fs-medium) };
-.fs-body { font-size: var(--fs-body) };
-.fs-sub-heading { font-size: var(--fs-sub-heading) };
-.fs-heading { font-size: var(--fs-heading) };
+.fs-small {
+  font-size: var(--fs-small);
+}
+
+.fs-medium {
+  font-size: var(--fs-medium);
+}
+
+.fs-body {
+  font-size: var(--fs-body);
+}
+
+.fs-sub-heading {
+  font-size: var(--fs-sub-heading);
+}
+
+.fs-heading {
+  font-size: var(--fs-heading);
+}
 
 /* Utility */
 .even-columns {
@@ -45,7 +60,7 @@
   used for spacing
   You can define a --flow-spacer variable in the style attribute of an element 
 */
-.flow > * + * {
+.flow>*+* {
   margin-top: var(--flow-spacer, 1em);
 }
 
@@ -60,4 +75,3 @@
   white-space: nowrap;
   width: 1px;
 }
-

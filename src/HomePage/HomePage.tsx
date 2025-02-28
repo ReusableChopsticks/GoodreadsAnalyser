@@ -127,8 +127,7 @@ export default function HomePage() {
         <h1>Get Started</h1>
         <p>
           Goodreads Visualiser takes your Goodreads library and finds some
-          interesting statistics about your reading habits. Follow the steps below to upload your
-          library and get started!
+          interesting statistics about your reading habits and displays the size of your books to scale. Follow the steps below to get started!
         </p>
 
         <ol className="flow">

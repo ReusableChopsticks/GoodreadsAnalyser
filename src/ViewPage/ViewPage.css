@@ -40,7 +40,7 @@
 .statistics-view label {
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  /* width: fit-content; */
   gap: 0.5rem;
   font-weight: bold;
   font-size: var(--fs-sub-heading);
@@ -72,13 +72,15 @@
 
 .scroll-shortcuts {
   position: fixed;
-  right: 2rem;
+  /* right: 2rem; */
+  left: 40%;
   bottom: 1rem;
 }
 
 .height-display {
   --indent: 2rem;
-  margin-bottom: 10rem;
+  /* how far above the height display should be */
+  margin-bottom: 3rem;
   margin-left: var(--indent);
   margin-top: var(--indent);
   align-self: flex-start;

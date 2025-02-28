@@ -6,11 +6,11 @@ export type HeightComparisonObject = { height: number, name: string, description
 
 export const HEIGHT_COMPARISONS: HeightComparisonObject[] = [
   { height: 0.22, name: "a soccer ball", description: "The diameter of a standard size 5 soccer ball" },
-  { height: 0.55, name: "the shortest person recorded", description: "Chandra Bahadur Dangi holds the title of the world's shortest human adult ever documented" },
+  { height: 0.55, name: "the height of the shortest person ever recorded", description: "Chandra Bahadur Dangi holds the title of the world's shortest human adult ever documented" },
   { height: 0.76, name: "an acoustic guitar", description: "The length of a standard acoustic guitar" },
   { height: 1.2, name: "a lion", description: "A large wild cat" },
   { height: 1.7, name: "a human", description: "An average adult human" },
-  { height: 2.5, name: "a sunflower", description: "A tall flowering plant" },
+  { height: 2.5, name: "a sunflower 🌻", description: "A tall flowering plant" },
   { height: 5.8, name: "a giraffe", description: "The tallest living terrestrial animal. The tallest recorded giraffe was named George and grew to be 5.8m tall." },
   { height: 13, name: "a Brachiosaurus", description: "A genus of sauropod dinosaur that lived in North America during the Late Jurassic, about 154–153 million years ago" },
   { height: 20.6, name: "Flinders Street Railway Station", description: "The height of Melbourne's most iconic train station" },
