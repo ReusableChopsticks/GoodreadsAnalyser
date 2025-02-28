@@ -43,6 +43,7 @@
   width: fit-content;
   gap: 0.5rem;
   font-weight: bold;
+  font-size: var(--fs-sub-heading);
 }
 
 .statistics-view label select {
@@ -51,32 +52,40 @@
   border-radius: 5px;
   padding: 0.2rem .5rem;
   font-weight: lighter;
+  font-size: var(--fs-body);
 }
 
 /* BOOK TOWER */
 
 .book-tower {
-  position: relative;
+  /* position: relative; */
+  background: linear-gradient(#FFF8EA, #ffe3a7);
   height: 100vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-end;
 
-  background: linear-gradient(#FFF8EA, #ffe3a7);
   /* top padding so theres space at the top of the book stack */
-  padding-top: 10rem;
+  /* padding-top: 10rem; */
+}
+
+.scroll-shortcuts {
+  position: fixed;
+  right: 2rem;
+  bottom: 1rem;
 }
 
 .height-display {
-  position: fixed;
-  left: 40%;
-  top: 1rem;
-  padding: 1rem;
+  --indent: 2rem;
+  margin-bottom: 10rem;
+  margin-left: var(--indent);
+  margin-top: var(--indent);
+  align-self: flex-start;
 
-  font-size: var(--fs-heading);
+  /* font-size: var(--fs-heading); */
+  /* font-size: initial; */
   font-family: var(--ff-secondary);
-  background-color: #0000003d;
 }
 
 .floor {

@@ -3,6 +3,10 @@
 /* FILE INPUT */
 .upload-page {
   min-height: 100vh;
+
+  /* TODO: for some reason, the .even-columns utility class is not working??? */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .file-input-container {

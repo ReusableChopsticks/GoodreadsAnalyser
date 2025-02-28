@@ -15,6 +15,7 @@
   --ff-secondary: "Libre Franklin", sans-serif;
 
   --fs-small: 0.75rem;
+  --fs-medium: 0.85rem;
   --fs-body: 1rem;
   --fs-sub-heading: 1.5rem;
   --fs-heading: 2rem;
@@ -27,6 +28,11 @@
   font-family: var(--ff-secondary);
 }
 
+.fs-small { font-size: var(--fs-small) };
+.fs-medium { font-size: var(--fs-medium) };
+.fs-body { font-size: var(--fs-body) };
+.fs-sub-heading { font-size: var(--fs-sub-heading) };
+.fs-heading { font-size: var(--fs-heading) };
 
 /* Utility */
 .even-columns {
