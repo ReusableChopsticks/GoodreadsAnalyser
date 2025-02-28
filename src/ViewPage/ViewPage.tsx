@@ -286,7 +286,7 @@ const getHeightComparison = (height: number): HeightComparisonObject => {
   //   i++;
   // }
   for (let i = 0; i < HEIGHT_COMPARISONS.length; i++) {
-    if (height > HEIGHT_COMPARISONS[i].height) {
+    if (height < HEIGHT_COMPARISONS[i].height) {
       return HEIGHT_COMPARISONS[i];
     }
   }
