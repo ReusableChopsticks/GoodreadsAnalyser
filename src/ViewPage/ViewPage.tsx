@@ -17,8 +17,8 @@ interface BookSpineProps {
 /**
  * TODO: find a better way to calculate indent
  */
-const MIN_INDENT = 5;
-const MAX_INDENT = 25;
+const MIN_INDENT = 10;
+const MAX_INDENT = 20;
 const MIN_TITLE_FONT_SIZE_PX = 12;
 const MAX_TITLE_FONT_SIZE_PX = 24;
 const golden_ratio_conjugate = 0.618033988749895;
@@ -35,7 +35,7 @@ const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
 
   const spineStyle: React.CSSProperties = {
     backgroundColor: `hsl(${h*360},90%,90%)`,
-    marginLeft: h * (MAX_INDENT - MIN_INDENT) + MIN_INDENT + "%",
+    marginRight: h * (MAX_INDENT - MIN_INDENT) + MIN_INDENT + "%",
     minHeight: `${height}px`,
     maxHeight: `${height}px`,
   };
@@ -54,22 +54,11 @@ const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
 };
 
 export default function ViewPage() {
-  const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
-  const totalBooks = getTotalBookCount(books);
-  const totalPages = getTotalPageCount(books);
-
+  const [books, setBooks] = useState<GoodreadsDataField[]>(getData().reverse());
   const navigate = useNavigate();
 
   // initial value for hue of book spine
   let h = Math.random();
-
-  // load the data in on page load
-  useEffect(() => {
-    // const readBooksOnly = getData().filter((field) => field['Exclusive Shelf'] === "read");
-    // setbooks(readBooksOnly);
-    // console.log(readBooksOnly);
-    // setbooks(getData());
-  }, []);
 
   return (
     <div className="view-page">

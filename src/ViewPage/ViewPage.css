@@ -47,6 +47,7 @@
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;
+  align-items: flex-end;
 
   background: linear-gradient(#FFF8EA, #ffe3a7);
   /* top padding so theres space at the top of the book stack */
@@ -55,11 +56,12 @@
 
 .floor {
   background-color: var(--clr-neutral-700);
+  min-width: 100%;
   min-height: 50px;
 }
 
 .book-spine {
-  width: fit-content;
+  width: min-content;
   min-width: 500px;
   box-shadow: inset 0px -5px 5px 0px rgba(0,0,0,0.2);
 
