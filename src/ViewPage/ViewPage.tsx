@@ -216,6 +216,25 @@ export default function ViewPage() {
           </div>
         </div>
 
+        <div className="favourite-authors">
+          <h2>Favourite authors by book count</h2>
+          <ol>
+            {getFavouriteAuthors(books).map((author) => (
+              <li key={author.author}>
+                {author.author}: {author.readCount}
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="read-time">
+          <h2>Estimated time spent reading</h2>
+          <span>Enter your reading speed here:</span>
+          <label id="reading-speed-input-label" htmlFor="reading-speed-input">
+            <input type="number" min={0} id="reading-speed-input" />
+          </label>
+          <span>Not sure what your reading speed is? Measure it <a className="link" target="_blank" href="https://swiftread.com/reading-speed-test">here</a></span>
+        </div>
         <button onClick={() => navigate("/")}>Back</button>
       </div>
 

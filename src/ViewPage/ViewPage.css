@@ -64,6 +64,32 @@ label:has(#select-sort-by) {
   flex: 1;
 }
 
+#reading-speed-input-label {
+  position: relative;
+  width: fit-content;
+  font-size: var(--fs-body);
+  font-weight: lighter;
+}
+
+#reading-speed-input-label::after {
+  content: 'wpm';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding-inline: 0.5rem;
+  /* background-color: var(--clr-neutral-100); */
+  font-size: var(--fs-medium);
+  font-weight: lighter;
+}
+
+#reading-speed-input-label input {
+  padding: 0.2rem 0.5rem;
+  -moz-appearance: textfield;
+}
+
 /* BOOK TOWER */
 
 .book-tower {
