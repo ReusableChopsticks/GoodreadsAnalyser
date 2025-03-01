@@ -46,7 +46,7 @@ const BookSpine = ({ h, title, author, pages, binding }: BookSpineProps) => {
   }
 
   const spineStyle: React.CSSProperties = {
-    backgroundColor: `hsl(${h * 360},90%,90%)`,
+    backgroundColor: `hsl(${h * 360},90%,87%)`,
     marginRight: h * (MAX_INDENT - MIN_INDENT) + MIN_INDENT + "%",
     minHeight: `${height}px`,
     maxHeight: `${height}px`,
@@ -70,6 +70,26 @@ const BookSpine = ({ h, title, author, pages, binding }: BookSpineProps) => {
     </div>
   );
 };
+
+const ReadTimeInput = ({ totalPages }: { totalPages: number }) => {
+  const [readingSpeed, setReadingSpeed] = useState<number>();
+  const WORDS_PER_PAGE = 280; // approximately
+  const getTotalTime = () => readingSpeed ? (totalPages * WORDS_PER_PAGE) / (readingSpeed * 60) : 0;
+
+  return (
+    <div className="read-time">
+      <h3>Estimated time spent reading</h3>
+      <span>Enter your reading speed here:</span>
+      <label id="reading-speed-input-label" htmlFor="reading-speed-input">
+        <input type="number" min={0} id="reading-speed-input" value={readingSpeed} onChange={(e) => setReadingSpeed(parseInt(e.target.value))} />
+      </label>
+      <span>Not sure what your reading speed is? Measure it <a className="link" target="_blank" href="https://swiftread.com/reading-speed-test">here</a></span>
+      {
+        getTotalTime() != 0 && <span id="time-read-span">You have spent rougly {getTotalTime().toFixed(2)} hours reading</span>
+      }
+    </div>
+  )
+}
 
 export default function ViewPage() {
   // this type is needed for dynamic accessing of GoodreadsDataField objects
@@ -237,14 +257,8 @@ export default function ViewPage() {
           </ol>
         </div>
 
-        <div className="read-time">
-          <h3>Estimated time spent reading</h3>
-          <span>Enter your reading speed here:</span>
-          <label id="reading-speed-input-label" htmlFor="reading-speed-input">
-            <input type="number" min={0} id="reading-speed-input" />
-          </label>
-          <span>Not sure what your reading speed is? Measure it <a className="link" target="_blank" href="https://swiftread.com/reading-speed-test">here</a></span>
-        </div>
+        <ReadTimeInput totalPages={totalPageCount} />
+
         <button onClick={() => navigate("/")}>Back</button>
       </div>
 

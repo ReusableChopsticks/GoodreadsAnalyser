@@ -80,6 +80,15 @@ label:has(#select-sort-by) {
   font-weight: lighter;
 }
 
+.read-time span {
+  display: block;
+}
+
+#time-read-span {
+  font-style: italic;
+  font-size: 1.3rem;
+}
+
 #reading-speed-input-label input {
   padding: 0.2rem 0.5rem;
   -moz-appearance: textfield;
