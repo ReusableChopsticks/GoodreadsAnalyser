@@ -19,6 +19,7 @@
   --fs-body: 1rem;
   --fs-sub-heading: 1.5rem;
   --fs-heading: 2rem;
+  --fs-large-heading: 3rem;
 }
 
 .ff-primary {
@@ -47,6 +48,10 @@
 
 .fs-heading {
   font-size: var(--fs-heading);
+}
+
+.fs-large-heading {
+  font-size: var(--fs-large-heading);
 }
 
 /* Utility */
