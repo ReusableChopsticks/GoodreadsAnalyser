@@ -113,6 +113,7 @@ label:has(#select-sort-by) {
   color: var(--clr-neutral-900);
   box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
   text-decoration: none;
+  transition: 0.2s;
 }
 
 .scroll-shortcuts a:hover {
