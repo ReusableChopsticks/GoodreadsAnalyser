@@ -69,20 +69,27 @@ const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
 };
 
 export default function ViewPage() {
+  // this type is needed for dynamic accessing of GoodreadsDataField objects
+  type BookKeys = keyof GoodreadsDataField;
+  type OrderOptions = "Ascending" | "Descending";
+
   const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
   const [totalPageCount] = useState<number>(getTotalPageCount(books));
   const [shelves] = useState<string[]>([
     ...new Set(books.map((book) => book["Exclusive Shelf"])),
   ]);
-  type OrderOptions = "Ascending" | "Descending";
+
+  const sortByOptions = ["Date Added", "Title", "Author", "Average Rating", "Number of Pages"];
   const [sortOrder, setSortOrder] = useState<OrderOptions>("Ascending");
+  const [sortBy, setSortBy] = useState<BookKeys>("Date Added");
 
   const bookTowerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   
-  // initial value for hue of book spine
+  // initial random value for hue of book spines
   let h = Math.random();
   
+  // display the top of the book tower first
   useEffect(() => {
     const onInitialLoad = () => {
       bookTowerRef.current?.scrollTo({top: -bookTowerRef.current?.scrollHeight, behavior: "instant"})
@@ -90,26 +97,18 @@ export default function ViewPage() {
     onInitialLoad();
   }, [])
 
-  const handleShelfChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === "all") {
-      setBooks(getData());
-    } else {
-      const filtered = getData().filter((book) => {
-        return book["Exclusive Shelf"] === e.target.value;
-      });
-      setBooks(filtered);
-    }
-  };
-
-  type bookType = keyof GoodreadsDataField;
-  const sortByOptions = ["Date Added", "Title", "Author", "Average Rating", "Number of Pages"];
-  const handleSortBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setBooks(books.toSorted((a, b) => {
+  /**
+   * orders and then assigns the books state so sort options are maintained when switching shelves 
+   * @param bookList the unsorted list of books to display
+   * @param field what field to sort the books by
+   */
+  const setSortedBooks = (bookList: GoodreadsDataField[], field: BookKeys) => {
+    setBooks(bookList.toSorted((a, b) => {
       let val = 0;
-      if (a[e.target.value as bookType] > b[e.target.value as bookType]) {
+      if (a[field] > b[field]) {
         val = -1;
       }
-      else if (b[e.target.value as bookType] > a[e.target.value as bookType]) {
+      else if (b[field] > a[field]) {
         val = 1;
       }
       else {
@@ -120,6 +119,22 @@ export default function ViewPage() {
       }
       return val;
     }))
+  }
+
+  const handleShelfChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "all") {
+      setSortedBooks(getData(), sortBy);
+    } else {
+      const filtered = getData().filter((book) => {
+        return book["Exclusive Shelf"] === e.target.value;
+      });
+      setSortedBooks(filtered, sortBy);
+    }
+  };
+
+  const handleSortBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(e.target.value as BookKeys);
+    setSortedBooks(books, e.target.value as BookKeys);
   }
 
   return (
@@ -147,7 +162,7 @@ export default function ViewPage() {
         <div className="sort-options">
           <label htmlFor="select-sort-by">
             Sort by
-            <select onChange={handleSortBy} id="select-sort-by">
+            <select onChange={handleSortBy} id="select-sort-by" value={sortBy}>
               {
                 sortByOptions.map((sortOption) => {
                   return <option key={sortOption} value={sortOption}>{sortOption}</option>
@@ -258,14 +273,12 @@ const getAverageStarRating = (data: GoodreadsDataField[]): number => {
   return sumRatings / totalRatings;
 };
 
-// TODO: if number of books is the same, sort authors by page count!
-// ^^^ this is totally optional because who really cares
 interface AuthorCount {
   author: string;
   readCount: number;
 }
 /**
- *
+ * Gets a list of your 5 most read authors by book count
  * @param data book list
  * @returns a sorted list of objects of the top 5 authors by number of books read {author: string, readCount: number}
  */
@@ -284,7 +297,7 @@ const getFavouriteAuthors = (data: GoodreadsDataField[]): AuthorCount[] => {
 };
 
 /**
- *
+ * Calculates the height of all your books stacked on top of each other
  * @param totalPages total number of pages read
  * @returns the height of your book stack in meters
  */
@@ -323,9 +336,9 @@ const getAverageReadTime = (data: GoodreadsDataField[]): number => {
 };
 
 /**
- *
+ * Gets the first object your book stack is taller than
  * @param height height of book stack
- * @returns the first object which is smaller than your book stack
+ * @returns the largest object which is smaller than your book stack
  */
 const getHeightComparison = (height: number): HeightComparisonObject => {
   for (let i = 0; i < HEIGHT_COMPARISONS.length; i++) {
