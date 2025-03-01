@@ -78,7 +78,6 @@ export default function ViewPage() {
 
   const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
   const [totalPageCount, setTotalPageCount] = useState<number>(getTotalPageCount(books));
-  const [bookStackHeight, setBookStackHeight] = useState<number>(getBookStackHeight(totalPageCount));
   const [shelves] = useState<string[]>([
     ...new Set(books.map((book) => book["Exclusive Shelf"])),
   ]);
@@ -103,9 +102,7 @@ export default function ViewPage() {
 
   useEffect(() => {
     const onShelfUpdate = () => {
-      const pages = getTotalPageCount(books);
-      setTotalPageCount(pages);
-      setBookStackHeight(getBookStackHeight(pages));
+      setTotalPageCount(getTotalPageCount(books));
     }
     onShelfUpdate();
   }, [books])
@@ -121,7 +118,7 @@ export default function ViewPage() {
       let right = b[field];
       let val = 0;
       
-      // if by author, we sort by last name
+      // if sorting by author, we sort by last name
       if (field === "Author") {
         left = a["Author l-f"].split(", ")[0];
         right = b["Author l-f"].split(", ")[0];
