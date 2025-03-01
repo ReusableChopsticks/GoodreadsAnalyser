@@ -71,11 +71,11 @@ const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
 export default function ViewPage() {
   const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
   const [totalPageCount] = useState<number>(getTotalPageCount(books));
-
   const [shelves] = useState<string[]>([
     ...new Set(books.map((book) => book["Exclusive Shelf"])),
   ]);
-  // const [stackHeight] = useState<number>(getBookStackHeight(totalPageCount));
+  type OrderOptions = "Ascending" | "Descending";
+  const [sortOrder, setSortOrder] = useState<OrderOptions>("Ascending");
 
   const bookTowerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -102,16 +102,23 @@ export default function ViewPage() {
   };
 
   type bookType = keyof GoodreadsDataField;
-  const sortByOptions = ["Date Added", "Title", "Author", "Average Rating"];
+  const sortByOptions = ["Date Added", "Title", "Author", "Average Rating", "Number of Pages"];
   const handleSortBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setBooks(books.toSorted((a, b) => {
+      let val = 0;
       if (a[e.target.value as bookType] > b[e.target.value as bookType]) {
-        return -1;
+        val = -1;
       }
-      if (b[e.target.value as bookType] > a[e.target.value as bookType]) {
-          return 1;
+      else if (b[e.target.value as bookType] > a[e.target.value as bookType]) {
+        val = 1;
       }
-      return 0;
+      else {
+        val = 0;
+      }
+      if (sortOrder === "Descending") {
+        val = -val;
+      }
+      return val;
     }))
   }
 
@@ -123,9 +130,9 @@ export default function ViewPage() {
       >
         <h1>Overall Statistics</h1>
 
-        <label htmlFor="filter-shelf">
+        <label htmlFor="select-filter-shelf">
           Filter by shelf
-          <select onChange={handleShelfChange} id="filter-shelf">
+          <select onChange={handleShelfChange} id="select-filter-shelf">
             <option key="all" value="all">
               all
             </option>
@@ -137,16 +144,26 @@ export default function ViewPage() {
           </select>
         </label>
 
-        <label htmlFor="sort-by">
-          Sort by
-          <select onChange={handleSortBy} id="sort-by">
-            {
-              sortByOptions.map((sortOption) => {
-                return <option key={sortOption} value={sortOption}>{sortOption}</option>
-              })
-            }
-          </select>
-        </label>
+        <div className="sort-options">
+          <label htmlFor="select-sort-by">
+            Sort by
+            <select onChange={handleSortBy} id="select-sort-by">
+              {
+                sortByOptions.map((sortOption) => {
+                  return <option key={sortOption} value={sortOption}>{sortOption}</option>
+                })
+              }
+            </select>
+          </label>
+
+          <label htmlFor="select-order">
+            Order
+            <select id="select-order" value={sortOrder} onChange={(e) => {setSortOrder(e.target.value as OrderOptions); setBooks(books.toReversed())}}>
+              <option value="Descending">Descending</option>
+              <option value="Ascending">Ascending</option>
+            </select>
+          </label>
+        </div>
 
         <div className="stat-columns | even-columns">
           <div className="total-pages">
@@ -195,6 +212,7 @@ export default function ViewPage() {
           h %= 1;
           return (
             <BookSpine
+              key={book["Book Id"]}
               h={h}
               title={book.Title}
               author={book.Author}

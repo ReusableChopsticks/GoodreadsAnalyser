@@ -55,6 +55,15 @@
   font-size: var(--fs-body);
 }
 
+.sort-options {
+  display: flex;
+  gap: 2rem;
+}
+
+label:has(#select-sort-by) {
+  flex: 1;
+}
+
 /* BOOK TOWER */
 
 .book-tower {
