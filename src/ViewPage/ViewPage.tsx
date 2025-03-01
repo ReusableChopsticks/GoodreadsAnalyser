@@ -163,7 +163,7 @@ export default function ViewPage() {
         className="statistics-view | flow"
         style={{ "--flow-spacer": "2rem" } as React.CSSProperties}
       >
-        <h1>Overall Statistics</h1>
+        <h1 className="fs-large-heading">Book Tower</h1>
 
         <label htmlFor="select-filter-shelf">
           Shelf
@@ -202,31 +202,32 @@ export default function ViewPage() {
 
         <hr />
 
+        <h2>Statistics</h2>
         <div className="stat-columns | even-columns">
           <div className="total-pages">
-            <h2>Total pages</h2>
+            <h3>Total pages</h3>
             <span>{totalPageCount.toLocaleString() + " pages"}</span>
           </div>
           <div className="total-books">
-            <h2>Total books</h2>
+            <h3>Total books</h3>
             <span>{getTotalBookCount(books)}</span>
           </div>
           <div className="avg-pages">
-            <h2>Average page count</h2>
+            <h3>Average page count</h3>
             <span>{(totalPageCount / books.length).toFixed() + " pages"}</span>
           </div>
           <div className="avg-stars">
-            <h2>Average star rating given</h2>
+            <h3>Average star rating given</h3>
             <span>{getAverageStarRating(books).toFixed(2)}</span>
           </div>
           <div className="avg-read-time">
-            <h2>Average read time</h2>
+            <h3>Average read time</h3>
             <span>{getAverageReadTime(books).toFixed() + " days"}</span>
           </div>
         </div>
 
         <div className="favourite-authors">
-          <h2>Favourite authors by book count</h2>
+          <h3>Favourite authors by book count</h3>
           <ol>
             {getFavouriteAuthors(books).map((author) => (
               <li key={author.author}>
@@ -237,7 +238,7 @@ export default function ViewPage() {
         </div>
 
         <div className="read-time">
-          <h2>Estimated time spent reading</h2>
+          <h3>Estimated time spent reading</h3>
           <span>Enter your reading speed here:</span>
           <label id="reading-speed-input-label" htmlFor="reading-speed-input">
             <input type="number" min={0} id="reading-speed-input" />
@@ -254,12 +255,12 @@ export default function ViewPage() {
           <a href="#" onClick={(e) => { 
             e.preventDefault(); 
             bookTowerRef.current?.scrollTo({top: -bookTowerRef.current?.scrollHeight, behavior: "smooth"})
-            }}>Top</a>
+            }}>Top ↑</a>
           {"   "}
           <a href="#" onClick={(e) => { 
             e.preventDefault(); 
             bookTowerRef.current?.scrollTo({top: 0, behavior: "smooth"})
-            }}>Bottom</a>
+            }}>Bottom ↓</a>
         </div>
 
         {/* BOOK STACK */}
