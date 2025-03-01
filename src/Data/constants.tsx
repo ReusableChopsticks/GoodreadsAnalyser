@@ -5,6 +5,7 @@ export const PX_PER_PAGE = PX_PER_MM / PAGE_HEIGHT_M;
 export type HeightComparisonObject = { height: number, name: string, description: string }
 
 export const HEIGHT_COMPARISONS: HeightComparisonObject[] = [
+  { height: -1, name: "not much really...", description: "???" },
   { height: 0.22, name: "a soccer ball", description: "The diameter of a standard size 5 soccer ball" },
   { height: 0.55, name: "the height of the shortest person ever recorded", description: "Chandra Bahadur Dangi holds the title of the world's shortest human adult ever documented" },
   { height: 0.76, name: "an acoustic guitar", description: "The length of a standard acoustic guitar" },

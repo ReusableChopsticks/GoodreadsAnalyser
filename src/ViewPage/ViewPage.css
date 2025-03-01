@@ -40,7 +40,7 @@
 .statistics-view label {
   display: flex;
   flex-direction: column;
-  /* width: fit-content; */
+  width: fit-content;
   gap: 0.5rem;
   font-weight: bold;
   font-size: var(--fs-sub-heading);
@@ -60,8 +60,9 @@
   gap: 2rem;
 }
 
+/* lazy parent selector. nothing fancy. */
 label:has(#select-sort-by) {
-  flex: 1;
+  /* flex: 1; */
 }
 
 #reading-speed-input-label {
@@ -80,7 +81,6 @@ label:has(#select-sort-by) {
   display: flex;
   align-items: center;
   padding-inline: 0.5rem;
-  /* background-color: var(--clr-neutral-100); */
   font-size: var(--fs-medium);
   font-weight: lighter;
 }

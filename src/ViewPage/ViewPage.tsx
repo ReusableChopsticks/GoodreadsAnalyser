@@ -77,7 +77,8 @@ export default function ViewPage() {
   type OrderOptions = "Ascending" | "Descending";
 
   const [books, setBooks] = useState<GoodreadsDataField[]>(getData());
-  const [totalPageCount] = useState<number>(getTotalPageCount(books));
+  const [totalPageCount, setTotalPageCount] = useState<number>(getTotalPageCount(books));
+  const [bookStackHeight, setBookStackHeight] = useState<number>(getBookStackHeight(totalPageCount));
   const [shelves] = useState<string[]>([
     ...new Set(books.map((book) => book["Exclusive Shelf"])),
   ]);
@@ -99,6 +100,15 @@ export default function ViewPage() {
     }
     onInitialLoad();
   }, [])
+
+  useEffect(() => {
+    const onShelfUpdate = () => {
+      const pages = getTotalPageCount(books);
+      setTotalPageCount(pages);
+      setBookStackHeight(getBookStackHeight(pages));
+    }
+    onShelfUpdate();
+  }, [books])
 
   /**
    * orders and then assigns the books state so sort options are maintained when switching shelves 
@@ -159,7 +169,7 @@ export default function ViewPage() {
         <h1>Overall Statistics</h1>
 
         <label htmlFor="select-filter-shelf">
-          Filter by shelf
+          Shelf
           <select onChange={handleFilterShelf} id="select-filter-shelf">
             <option key="all" value="all">
               all
@@ -192,6 +202,8 @@ export default function ViewPage() {
             </select>
           </label>
         </div>
+
+        <hr />
 
         <div className="stat-columns | even-columns">
           <div className="total-pages">
