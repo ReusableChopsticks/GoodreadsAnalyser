@@ -132,8 +132,8 @@ export default function HomePage() {
 
         <ol className="flow">
           <li>
-            On Goodreads, go to 'My Books' or click{" "}
-            <a className="link" target="_blank" href="https://www.goodreads.com/review/list/">this link</a> and then on the side bar, click 'Import/Export.'
+            On Goodreads, sign in and go to 'My Books' or click{" "}
+            <a className="link" target="_blank" href="https://www.goodreads.com/review/import">this link</a> and then on the side bar, click 'Import/Export.'
           </li>
           <li>
             Now click on 'Export Library.' Finally, when it appears, the generated link to download your Goodreads data.

@@ -28,7 +28,7 @@
   outline: solid #ddd 2px;
   margin-inline: 1rem;
   padding-inline: 2rem;
-  padding-top: 2rem;
+  padding-block: 2rem;
 
   overflow-y: scroll;
 }

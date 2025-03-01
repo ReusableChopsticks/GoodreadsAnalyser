@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   clamp,
   getData,
-  GOODREADS_FIELDS,
   GoodreadsDataField,
-  randomIntRange,
 } from "../Data/repo";
 import {
   HEIGHT_COMPARISONS,
@@ -22,25 +20,30 @@ interface BookSpineProps {
   title: string;
   author: string;
   pages: number;
+  binding: string;
 }
 
-/**
- * TODO: find a better way to calculate indent
- */
+// indents are percentages
 const MIN_INDENT = 10;
 const MAX_INDENT = 20;
 const MIN_TITLE_FONT_SIZE_PX = 12;
 const MAX_TITLE_FONT_SIZE_PX = 24;
 const golden_ratio_conjugate = 0.618033988749895;
-const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
-  // make sure hues are evenly spaced using the golden ratio, following [https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/]
+const BookSpine = ({ h, title, author, pages, binding }: BookSpineProps) => {
+  /**
+   * makes sure hues are evenly spaced using the golden ratio, 
+   * following [https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/]
+   *  */ 
 
   // for fun, this line makes the book heights to scale!
-  // TODO: make this a feature!!!!!
   // const height = pages * PX_PER_PAGE;
 
-  // this number looks more pleasant. Make a slider for these values [0.15, pages * PX_PER_PAGE]
-  const height = pages * 0.18;
+  // this number looks more pleasant. Make a slider between these values: [0.15, pages * PX_PER_PAGE]
+  let height = pages * 0.18;
+  if (binding === "Audiobook") {
+    // an arbitrary height for audiobooks
+    height = 50;
+  }
 
   const spineStyle: React.CSSProperties = {
     backgroundColor: `hsl(${h * 360},90%,90%)`,
@@ -62,7 +65,7 @@ const BookSpine = ({ h, title, author, pages }: BookSpineProps) => {
     <div className="book-spine" style={spineStyle}>
       <span className="spine-author">{author}</span>
       <span className="spine-title" style={titleStyle}>
-        {title}
+        {title + (binding === "Audiobook" ? " 🎧 [Audiobook]" : "")}
       </span>
     </div>
   );
@@ -104,16 +107,26 @@ export default function ViewPage() {
    */
   const setSortedBooks = (bookList: GoodreadsDataField[], field: BookKeys) => {
     setBooks(bookList.toSorted((a, b) => {
+      let left = a[field];
+      let right = b[field];
       let val = 0;
-      if (a[field] > b[field]) {
+      
+      // if by author, we sort by last name
+      if (field === "Author") {
+        left = a["Author l-f"].split(", ")[0];
+        right = b["Author l-f"].split(", ")[0];
+      }
+      
+      if (left > right) {
         val = -1;
       }
-      else if (b[field] > a[field]) {
+      else if (right > left) {
         val = 1;
       }
       else {
         val = 0;
       }
+
       if (sortOrder === "Descending") {
         val = -val;
       }
@@ -121,7 +134,7 @@ export default function ViewPage() {
     }))
   }
 
-  const handleShelfChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFilterShelf = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "all") {
       setSortedBooks(getData(), sortBy);
     } else {
@@ -147,7 +160,7 @@ export default function ViewPage() {
 
         <label htmlFor="select-filter-shelf">
           Filter by shelf
-          <select onChange={handleShelfChange} id="select-filter-shelf">
+          <select onChange={handleFilterShelf} id="select-filter-shelf">
             <option key="all" value="all">
               all
             </option>
@@ -220,6 +233,8 @@ export default function ViewPage() {
             bookTowerRef.current?.scrollTo({top: 0, behavior: "smooth"})
             }}>Bottom</a>
         </div>
+
+        {/* BOOK STACK */}
         <div className="floor" />
         {books.map((book) => {
           // keep adding the golden ratio so similar colours do not appear next to each other
@@ -232,6 +247,7 @@ export default function ViewPage() {
               title={book.Title}
               author={book.Author}
               pages={book["Number of Pages"]}
+              binding={book.Binding}
             />
           );
         })}
