@@ -110,6 +110,7 @@ label:has(#select-sort-by) {
 }
 
 .scroll-shortcuts {
+  z-index: 100;
   position: fixed;
   left: 40%;
   bottom: 2rem;
