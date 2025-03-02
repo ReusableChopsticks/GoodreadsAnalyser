@@ -112,8 +112,12 @@ export default function ViewPage() {
   // initial random value for hue of book spines
   let h = Math.random();
   
-  // display the top of the book tower first
+  if (getData().length === 0) {
+    navigate("/");
+  }
   useEffect(() => {
+
+    // display the top of the book tower first
     const onInitialLoad = () => {
       bookTowerRef.current?.scrollTo({top: -bookTowerRef.current?.scrollHeight, behavior: "instant"})
     }
