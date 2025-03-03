@@ -12,7 +12,7 @@ import {
 } from "../Data/constants";
 
 import "./ViewPage.css";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 interface BookSpineProps {
   // h is a number between [0, 1] evenly spaced by the golden ratio
@@ -21,6 +21,7 @@ interface BookSpineProps {
   author: string;
   pages: number;
   binding: string;
+  isbn: string;
 }
 
 // indents are percentages
@@ -29,7 +30,7 @@ const MAX_INDENT = 20;
 const MIN_TITLE_FONT_SIZE_PX = 12;
 const MAX_TITLE_FONT_SIZE_PX = 24;
 const golden_ratio_conjugate = 0.618033988749895;
-const BookSpine = ({ h, title, author, pages, binding }: BookSpineProps) => {
+const BookSpine = ({ h, title, author, pages, binding, isbn }: BookSpineProps) => {
   /**
    * makes sure hues are evenly spaced using the golden ratio, 
    * following [https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/]
@@ -40,8 +41,9 @@ const BookSpine = ({ h, title, author, pages, binding }: BookSpineProps) => {
 
   // this number looks more pleasant. Make a slider between these values: [0.15, pages * PX_PER_PAGE]
   let height = pages * 0.18;
+
   if (binding === "Audiobook") {
-    // an arbitrary height for audiobooks
+    // an arbitrary height for audiobooks that looks alright
     height = 50;
   }
 
@@ -62,12 +64,12 @@ const BookSpine = ({ h, title, author, pages, binding }: BookSpineProps) => {
   };
 
   return (
-    <div className="book-spine" style={spineStyle}>
+    <Link to={`/book/${isbn}`} className="book-spine" style={spineStyle} >
       <span className="spine-author">{author}</span>
       <span className="spine-title" style={titleStyle}>
         {title + (binding === "Audiobook" ? " 🎧 [Audiobook]" : "")}
       </span>
-    </div>
+    </Link>
   );
 };
 
@@ -296,6 +298,7 @@ export default function ViewPage() {
               author={book.Author}
               pages={book["Number of Pages"]}
               binding={book.Binding}
+              isbn={book.ISBN}
             />
           );
         })}
