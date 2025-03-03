@@ -188,7 +188,7 @@ export default function ViewPage() {
         className="statistics-view | flow"
         style={{ "--flow-spacer": "2rem" } as React.CSSProperties}
       >
-        <h1 className="fs-large-heading">Book Tower</h1>
+        <h1 className="fs-large-heading">Your Book Tower</h1>
 
         <label htmlFor="select-filter-shelf">
           Shelf
