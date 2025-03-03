@@ -5,32 +5,29 @@ import './reset.css'
 import './util.css'
 
 import {
+  BrowserRouter,
   createBrowserRouter,
+  Route,
   RouterProvider,
+  Routes,
 } from "react-router";
 import ErrorPage from './ErrorPage.tsx';
 import ViewPage from './ViewPage/ViewPage.tsx';
 import HomePage from './HomePage/HomePage.tsx';
 import ScrapsPage from './scraps/thejoyoflearningts.tsx';
+import BookPage from './BookPage/BookPage.tsx'
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: "view",
-    element: <ViewPage />
-  },
-  {
-    path: "scraps",
-    element: <ScrapsPage />
-  }
-]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<p>ERROR!!!!!!</p>} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<ScrapsPage />} />
+        <Route path="/view" element={<ViewPage />} />
+        <Route path="/book/:id" element={<BookPage />} />
+      </Routes>
+    </BrowserRouter>
   </StrictMode>,
 )
