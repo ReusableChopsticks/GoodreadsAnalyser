@@ -12,7 +12,7 @@ import {
 } from "../Data/constants";
 
 import "./ViewPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 interface BookSpineProps {
   // h is a number between [0, 1] evenly spaced by the golden ratio

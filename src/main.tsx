@@ -7,7 +7,7 @@ import './util.css'
 import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router-dom";
+} from "react-router";
 import ErrorPage from './ErrorPage.tsx';
 import ViewPage from './ViewPage/ViewPage.tsx';
 import HomePage from './HomePage/HomePage.tsx';
