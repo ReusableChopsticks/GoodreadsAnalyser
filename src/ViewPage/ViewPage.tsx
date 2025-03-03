@@ -112,14 +112,15 @@ export default function ViewPage() {
   // initial random value for hue of book spines
   let h = Math.random();
   
-  if (getData().length === 0) {
-    navigate("/");
+  const scrollToTop = () => {
+    bookTowerRef.current?.scrollTo({top: -bookTowerRef.current?.scrollHeight, behavior: "instant"});
   }
+  
   useEffect(() => {
-
     // display the top of the book tower first
     const onInitialLoad = () => {
-      bookTowerRef.current?.scrollTo({top: -bookTowerRef.current?.scrollHeight, behavior: "instant"})
+      // bookTowerRef.current?.scrollTo({top: -bookTowerRef.current?.scrollHeight, behavior: "instant"})
+      scrollToTop();
     }
     onInitialLoad();
   }, [])
@@ -162,7 +163,7 @@ export default function ViewPage() {
         val = -val;
       }
       return val;
-    }))
+    }));
   }
 
   const handleFilterShelf = (e: React.ChangeEvent<HTMLSelectElement>) => {
