@@ -21,7 +21,7 @@ interface BookSpineProps {
   author: string;
   pages: number;
   binding: string;
-  isbn: string;
+  id: string;
 }
 
 // indents are percentages
@@ -30,7 +30,7 @@ const MAX_INDENT = 20;
 const MIN_TITLE_FONT_SIZE_PX = 12;
 const MAX_TITLE_FONT_SIZE_PX = 24;
 const golden_ratio_conjugate = 0.618033988749895;
-const BookSpine = ({ h, title, author, pages, binding, isbn }: BookSpineProps) => {
+const BookSpine = ({ h, title, author, pages, binding, id }: BookSpineProps) => {
   /**
    * makes sure hues are evenly spaced using the golden ratio, 
    * following [https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/]
@@ -64,7 +64,7 @@ const BookSpine = ({ h, title, author, pages, binding, isbn }: BookSpineProps) =
   };
 
   return (
-    <Link to={`/book/${isbn}`} className="book-spine" style={spineStyle} >
+    <Link to={`/book/${id}`} className="book-spine" style={spineStyle} >
       <span className="spine-author">{author}</span>
       <span className="spine-title" style={titleStyle}>
         {title + (binding === "Audiobook" ? " 🎧 [Audiobook]" : "")}
@@ -298,7 +298,7 @@ export default function ViewPage() {
               author={book.Author}
               pages={book["Number of Pages"]}
               binding={book.Binding}
-              isbn={book.ISBN}
+              id={book["Book Id"]}
             />
           );
         })}

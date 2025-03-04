@@ -1,7 +1,7 @@
 const DATA_KEY = 'data'
 
 export interface GoodreadsDataField {
-  "Book Id": number;
+  "Book Id": string;
   "Title": string;
   "Author": string;
   "Author l-f": string;
@@ -61,6 +61,18 @@ const getData = (): GoodreadsDataField[] => {
   const data = localStorage.getItem(DATA_KEY);
   if (data) {return JSON.parse(data)} else {return []}
 }
+/**
+ * 
+ * @param id the Goodreads ID of the book to be retrieved
+ * @returns the corresponding book data field, or an empty object if not found
+ */
+const getById = (id: string): GoodreadsDataField => {
+  const data = getData();
+  const result = data.find(field => field["Book Id"] === id);
+
+  if (!result) {return {} as GoodreadsDataField}
+  return result;
+}
 const clearData = (): void => {
   localStorage.setItem(DATA_KEY, '[]');
 }
@@ -96,6 +108,7 @@ const processData = (data: GoodreadsDataField[]) => {
 export {
   setData,
   getData,
+  getById,
   clearData,
   processData,
 }
