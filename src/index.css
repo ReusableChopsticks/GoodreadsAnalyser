@@ -3,7 +3,7 @@
   font-size: var(--fs-body);
 }
 
-button {
+button, .button {
   display: inline-flex;
   background-color: var(--clr-neutral-600);
   font-family: var(--ff-secondary);
@@ -16,7 +16,7 @@ button {
   text-align: center;
 }
 
-button:hover {
+button:hover, .button:hover {
   background-color: var(--clr-neutral-700);
   transition: 0.2s;
 }
