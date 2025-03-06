@@ -7,7 +7,12 @@
   border-right: solid 2px #eee;
 }
 
+/* so markdown converted to react components look styled */
+.book-page em {
+  font-style: italic;
+}
+
 .book-page .left-column, .right-column {
   justify-content: center;
-  padding: 2rem;
+  padding: 4rem;
 }
