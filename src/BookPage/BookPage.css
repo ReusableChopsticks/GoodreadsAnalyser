@@ -1,0 +1,13 @@
+.book-page {
+  display: grid;
+  grid-template-columns: 1fr 1.618fr;
+  max-width: 1000px;
+  margin-inline: auto;
+  border-left: solid 2px #eee;
+  border-right: solid 2px #eee;
+}
+
+.book-page .left-column, .right-column {
+  justify-content: center;
+  padding: 2rem;
+}
