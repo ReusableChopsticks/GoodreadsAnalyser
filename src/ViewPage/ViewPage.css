@@ -168,7 +168,7 @@ label:has(#select-sort-by) {
 .book-spine:hover {
   /* filter: grayscale(50%); */
   /* color: rgb(118, 187, 255); */
-  color: rgb(0, 89, 255);
+  color: var(--link-color);
   text-decoration: underline;
 }
 

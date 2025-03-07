@@ -7,6 +7,21 @@ import { MoonLoader } from "react-spinners";
 import "./BookPage.css";
 import Markdown from "react-markdown";
 
+const ReadMore = ({ children }: { children: string }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    // <>
+      <div className="read-more" data-expanded={expanded}>
+        <div className="read-more-content">{children}</div>
+        <span className="read-more-link" onClick={() => setExpanded(!expanded)}>
+          {expanded ? "Show less" : "Show more"}
+        </span>
+      </div>
+    // </>
+  );
+};
+
 export default function BookPage() {
   const { id } = useParams() as { id: string };
   const [book] = useState<GoodreadsDataField>(getById(id));
@@ -15,22 +30,32 @@ export default function BookPage() {
   // always the first search result
   const [googleData, setGoogleData] = useState<any>();
 
+  const longDescLength = 500;
+
   useEffect(() => {
     const loadCover = async () => {
-      // remove any text after a hyphen, parentheses or colon and format the title for the search query
-      const title = book["Title"].replace(/[—\(:].*$/, '').split(" ").join("+").normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      const author = book["Author l-f"].split(", ").join("+").normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-console.log(`https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}&filter=partial`)
+      const title = book["Title"]
+        .split(" ")
+        .join("+")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      const author = book["Author l-f"]
+        .split(", ")
+        .join("+")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
       const result = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}&filter=partial`
       );
 
-      console.log(result);
-
-      setGoogleData(result.data.items[0]);
-      const rawUrl = result.data.items[0].volumeInfo.imageLinks.thumbnail;
-      const zoomedUrl = rawUrl.replace("zoom=1", "zoom=100");
-      setBookCoverURL(zoomedUrl);
+      if (result) {
+        setGoogleData(result.data.items[0]);
+        const rawUrl = result.data.items[0].volumeInfo.imageLinks.thumbnail;
+        const zoomedUrl = rawUrl.replace("zoom=1", "zoom=100");
+        setBookCoverURL(zoomedUrl);
+      } else {
+        setGoogleData(null);
+      }
     };
     loadCover();
   }, []);
@@ -48,7 +73,7 @@ console.log(`https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${a
                 <h3>ISBN</h3>
                 <span>
                   {book.ISBN
-                    ? book.ISBN
+                    ? book.ISBN.slice(2, -1)
                     : googleData.volumeInfo.industryIdentifiers[0].identifier}
                 </span>
               </div>
@@ -66,10 +91,17 @@ console.log(`https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${a
           <div className="right-column | flow">
             <h1>{book.Title}</h1>
             <h2>{book.Author}</h2>
-            <details>
+            {/* <details>
               <summary>Description</summary>
               {googleData.volumeInfo.description}
-            </details>
+            </details> */}
+            <div className="description">
+              {googleData.volumeInfo.description.length < longDescLength ? (
+                googleData.volumeInfo.description
+              ) : (
+                <ReadMore>{googleData.volumeInfo.description}</ReadMore>
+              )}
+            </div>
             <div className="even-columns">
               <div>
                 <h3>Average rating</h3>
@@ -91,15 +123,11 @@ console.log(`https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${a
             <div>
               <h3>Your review</h3>
               {/* <p> */}
-                {
-              book["My Review"] 
-                ? 
-              // <div dangerouslySetInnerHTML={sanitizeHTML(book["My Review"])}></div>
-              // <Markdown components={{br: 'a'}}>{'# Hi, *Pluto*! \n okkk'}</Markdown>
-              convertMarkdown(book["My Review"])
-                : 
-              "No review set."
-              }
+              {book["My Review"]
+                ? // <div dangerouslySetInnerHTML={sanitizeHTML(book["My Review"])}></div>
+                  // <Markdown components={{br: 'a'}}>{'# Hi, *Pluto*! \n okkk'}</Markdown>
+                  convertMarkdown(book["My Review"])
+                : "No review set."}
               {/* </p> */}
             </div>
             <div className=""></div>
@@ -117,16 +145,13 @@ console.log(`https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${a
 }
 
 const getBookshelves = (book: GoodreadsDataField) => {
-  // make into set to avoid repetition
-  const shelves = new Set(book["Bookshelves"].split(", "));
-  shelves.add(book["Exclusive Shelf"]);
-  
-  let formatted = '';
-  shelves.forEach(shelf => {
-    if (shelf) {formatted += shelf + ', ';}
-  });
-  return formatted.slice(0, -2);
-}
+  const shelves = book["Bookshelves"] ? book["Bookshelves"].split(", ") : [];
+  if (!shelves.includes(book["Exclusive Shelf"])) {
+    shelves.push(book["Exclusive Shelf"]);
+  }
+  console.log(shelves);
+  return shelves.join(", ");
+};
 
 // goodreads actually lets html be used in reviews but i dont know how to sanitise it in react
 const convertMarkdown = (text: string) => {
@@ -136,7 +161,5 @@ const convertMarkdown = (text: string) => {
   const md = new Turndown().turndown(text);
   console.log(md);
 
-  return (
-    <Markdown>{md}</Markdown>
-  )
-}
+  return <Markdown>{md}</Markdown>;
+};
