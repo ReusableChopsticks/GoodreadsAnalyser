@@ -9,16 +9,17 @@ import Markdown from "react-markdown";
 
 const ReadMore = ({ children }: { children: string }) => {
   const [expanded, setExpanded] = useState(false);
+  const longDescLength = 500;
 
-  return (
-    // <>
-      <div className="read-more" data-expanded={expanded}>
-        <div className="read-more-content">{children}</div>
-        <span className="read-more-link" onClick={() => setExpanded(!expanded)}>
-          {expanded ? "Show less" : "Show more"}
-        </span>
-      </div>
-    // </>
+  return children.length < longDescLength ? (
+    convertMarkdown(children)
+  ) : (
+    <div className="read-more" data-expanded={expanded}>
+      <div className="read-more-content">{convertMarkdown(children)}</div>
+      <span className="read-more-link" onClick={() => setExpanded(!expanded)}>
+        {expanded ? "Show less" : "Show more"}
+      </span>
+    </div>
   );
 };
 
@@ -27,10 +28,8 @@ export default function BookPage() {
   const [book] = useState<GoodreadsDataField>(getById(id));
   const [bookCoverURL, setBookCoverURL] = useState<string>("");
   // TODO: learn how to type this!
-  // always the first search result
+  // always use the first search result for simplicity
   const [googleData, setGoogleData] = useState<any>();
-
-  const longDescLength = 500;
 
   useEffect(() => {
     const loadCover = async () => {
@@ -49,6 +48,7 @@ export default function BookPage() {
       );
 
       if (result) {
+        console.log(result.data.items[0]);
         setGoogleData(result.data.items[0]);
         const rawUrl = result.data.items[0].volumeInfo.imageLinks.thumbnail;
         const zoomedUrl = rawUrl.replace("zoom=1", "zoom=100");
@@ -66,6 +66,7 @@ export default function BookPage() {
         // if google data is loaded, render the page
         <>
           <div className="left-column | flow">
+            <Link to="/view">Back</Link>
             <img className="book-cover" src={bookCoverURL} alt="Book cover" />
             <div className="metadata">
               <h2>Metadata</h2>
@@ -91,17 +92,13 @@ export default function BookPage() {
           <div className="right-column | flow">
             <h1>{book.Title}</h1>
             <h2>{book.Author}</h2>
-            {/* <details>
-              <summary>Description</summary>
-              {googleData.volumeInfo.description}
-            </details> */}
-            <div className="description">
-              {googleData.volumeInfo.description.length < longDescLength ? (
-                googleData.volumeInfo.description
-              ) : (
+            {googleData.volumeInfo.description ? (
+              <div className="description">
                 <ReadMore>{googleData.volumeInfo.description}</ReadMore>
-              )}
-            </div>
+              </div>
+            ) : (
+              <p>No description available.</p>
+            )}
             <div className="even-columns">
               <div>
                 <h3>Average rating</h3>
@@ -109,7 +106,7 @@ export default function BookPage() {
               </div>
               <div>
                 <h3>Your rating</h3>
-                <p>{book["My Rating"]}</p>
+                <p>{book["My Rating"].toFixed(2)}</p>
               </div>
               <div>
                 <h3>Date added</h3>
@@ -122,13 +119,11 @@ export default function BookPage() {
             </div>
             <div>
               <h3>Your review</h3>
-              {/* <p> */}
-              {book["My Review"]
-                ? // <div dangerouslySetInnerHTML={sanitizeHTML(book["My Review"])}></div>
-                  // <Markdown components={{br: 'a'}}>{'# Hi, *Pluto*! \n okkk'}</Markdown>
-                  convertMarkdown(book["My Review"])
-                : "No review set."}
-              {/* </p> */}
+              {book["My Review"] ? (
+                <ReadMore>{book["My Review"]}</ReadMore>
+              ) : (
+                "No review set."
+              )}
             </div>
             <div className=""></div>
             <Link className="button" to="/view">
@@ -149,17 +144,18 @@ const getBookshelves = (book: GoodreadsDataField) => {
   if (!shelves.includes(book["Exclusive Shelf"])) {
     shelves.push(book["Exclusive Shelf"]);
   }
-  console.log(shelves);
   return shelves.join(", ");
 };
 
 // goodreads actually lets html be used in reviews but i dont know how to sanitise it in react
 const convertMarkdown = (text: string) => {
   // for whatever reason, react-markdown does not like <br/> tags so this will do.
-  // text = text.replaceAll("<br/>", "\n");
-  const Turndown = (window as any).TurndownService;
-  const md = new Turndown().turndown(text);
-  console.log(md);
+  text = text.replaceAll("<br/>", "\n");
 
-  return <Markdown>{md}</Markdown>;
+  // for some reason i tried turning it into markdown first but why
+  // const Turndown = (window as any).TurndownService;
+  // const md = new Turndown().turndown(text);
+  // console.log(md);
+
+  return <Markdown>{text}</Markdown>;
 };
