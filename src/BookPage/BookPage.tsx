@@ -152,7 +152,7 @@ export default function BookPage() {
                 "No review set."
               )}
             </div>
-            <Link className="button" to="/view">
+            <Link className="back-button | button" to="/view">
               Back
             </Link>
           </div>
