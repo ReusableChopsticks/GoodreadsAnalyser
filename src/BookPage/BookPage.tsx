@@ -63,10 +63,10 @@ export default function BookPage() {
   }, []);
 
   return (
-    <div className="book-page">
+    <>
       {googleData ? (
         // if google data is loaded, render the page
-        <>
+        <div className="book-page">
           <div className="left-column | flow">
             <img className="book-cover" src={bookCoverURL} alt="Book cover" />
             <h3>Metadata</h3>
@@ -156,14 +156,15 @@ export default function BookPage() {
               Back
             </Link>
           </div>
-        </>
+        </div>
       ) : (
         // loading spinner
         <div className="loading-book">
           <MoonLoader />
+          <span>Loading...</span>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
