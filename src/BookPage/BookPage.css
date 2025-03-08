@@ -8,6 +8,13 @@
   margin-inline: auto;
   border-left: solid 2px #eee;
   border-right: solid 2px #eee;
+  padding: 4rem;
+
+  /* background-color: rgb(238, 196, 196); */
+}
+
+.book-page img {
+  box-shadow: 0px 0px 10px 0px var(--clr-neutral-800);
 }
 
 /* so markdown converted to react components look styled */
@@ -15,9 +22,25 @@
   font-style: italic;
 }
 
+.book-page h1 {
+  font-size: var(--fs-large-heading);
+  font-weight: unset;
+}
+.book-page h2 {
+  font-size: var(--fs-heading);
+  font-weight: bold;
+}
+.book-page h3 {
+  font-size: var(--fs-sub-heading);
+}
+.book-page h4 {
+  font-size: var(--fs-body);
+  font-weight: bold;
+}
+
 .book-page .left-column, .right-column {
   justify-content: center;
-  padding: 4rem;
+  padding-inline: 2rem;
 }
 
 .book-page {
@@ -46,6 +69,25 @@
 .read-more-content {
   min-height: 100px;
   overflow: hidden;
+  position: relative;
+
+}
+
+.read-more-content[data-expanded="false"]::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 100%);
+  opacity: 0;
+  animation: fadeIn 500ms 100ms forwards; /* Animation with 500ms delay */
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 .read-more[data-expanded="true"] {
@@ -58,6 +100,10 @@
   width: fit-content;
 }
 
+.loading-book {
+  align-self: center;
+  justify-self: center;
+}
 /* .read-more::before {
   content: '▼ Read more';
   color: var(--link-color);

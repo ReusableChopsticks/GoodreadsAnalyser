@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router";
 import { getById, GoodreadsDataField } from "../Data/repo";
 import { MoonLoader } from "react-spinners";
 
+
 import "./BookPage.css";
 import Markdown from "react-markdown";
 
@@ -15,9 +16,9 @@ const ReadMore = ({ children }: { children: string }) => {
     convertMarkdown(children)
   ) : (
     <div className="read-more" data-expanded={expanded}>
-      <div className="read-more-content">{convertMarkdown(children)}</div>
+      <div className="read-more-content" data-expanded={expanded}>{convertMarkdown(children)}</div>
       <span className="read-more-link" onClick={() => setExpanded(!expanded)}>
-        {expanded ? "Show less" : "Show more"}
+        {expanded ? "Show less ↑" : "Read more ↓"}
       </span>
     </div>
   );
@@ -53,6 +54,7 @@ export default function BookPage() {
         const rawUrl = result.data.items[0].volumeInfo.imageLinks.thumbnail;
         const zoomedUrl = rawUrl.replace("zoom=1", "zoom=100");
         setBookCoverURL(zoomedUrl);
+        console.log(book.ISBN13);
       } else {
         setGoogleData(null);
       }
@@ -66,32 +68,57 @@ export default function BookPage() {
         // if google data is loaded, render the page
         <>
           <div className="left-column | flow">
-            <Link to="/view">Back</Link>
             <img className="book-cover" src={bookCoverURL} alt="Book cover" />
-            <div className="metadata">
-              <h2>Metadata</h2>
+            <h3>Metadata</h3>
+            <div className="metadata | even-columns">
               <div>
-                <h3>ISBN</h3>
+                <h4>ISBN13</h4>
                 <span>
-                  {book.ISBN
-                    ? book.ISBN.slice(2, -1)
+                  {book.ISBN13 !== "" && book.ISBN13 !== `=""`
+                    ? book.ISBN13.slice(2, -1)
                     : googleData.volumeInfo.industryIdentifiers[0].identifier}
                 </span>
               </div>
               <div>
-                <h3>Page count</h3>
+                <h4>ISBN10</h4>
+                <span>
+                  {book.ISBN !== "" && book.ISBN !== `=""`
+                    ? book.ISBN.slice(2, -1)
+                    : googleData.volumeInfo.industryIdentifiers[1].identifier}
+                </span>
+              </div>
+              <div>
+                <h4>Page count</h4>
                 <span>{book["Number of Pages"]}</span>
               </div>
               <div>
-                <h3>Bookshelves</h3>
+                <h4>Bookshelves</h4>
                 <span>{getBookshelves(book)}</span>
               </div>
+              <div>
+                <h4>Publisher</h4>
+                <span>{googleData.volumeInfo.publisher}</span>
+              </div>
+              
+              {
+                book["Original Publication Year"] &&
+                <div>
+                  <h4>Original Publication Year</h4>
+                  <span>{book["Original Publication Year"]}</span>
+                </div>
+              }
             </div>
           </div>
 
           <div className="right-column | flow">
-            <h1>{book.Title}</h1>
-            <h2>{book.Author}</h2>
+            <div className="titles">
+              <h1>{book.Title}</h1>
+              <h2>{book.Author}</h2>
+            </div>
+            {
+              book["Additional Authors"] &&
+              <span>and {book["Additional Authors"]}</span>
+            }
             {googleData.volumeInfo.description ? (
               <div className="description">
                 <ReadMore>{googleData.volumeInfo.description}</ReadMore>
@@ -125,7 +152,6 @@ export default function BookPage() {
                 "No review set."
               )}
             </div>
-            <div className=""></div>
             <Link className="button" to="/view">
               Back
             </Link>
@@ -133,7 +159,9 @@ export default function BookPage() {
         </>
       ) : (
         // loading spinner
-        <MoonLoader />
+        <div className="loading-book">
+          <MoonLoader />
+        </div>
       )}
     </div>
   );
