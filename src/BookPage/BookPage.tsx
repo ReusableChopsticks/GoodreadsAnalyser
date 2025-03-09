@@ -114,11 +114,11 @@ export default function BookPage() {
             <div className="titles">
               <h1>{book.Title}</h1>
               <h2>{book.Author}</h2>
+              {
+                book["Additional Authors"] &&
+                <span className="additional-authors">and {book["Additional Authors"]}</span>
+              }
             </div>
-            {
-              book["Additional Authors"] &&
-              <span>and {book["Additional Authors"]}</span>
-            }
             {googleData.volumeInfo.description ? (
               <div className="description">
                 <ReadMore>{googleData.volumeInfo.description}</ReadMore>

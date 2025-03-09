@@ -8,7 +8,6 @@ import {
   HEIGHT_COMPARISONS,
   HeightComparisonObject,
   PAGE_HEIGHT_M,
-  PX_PER_PAGE,
 } from "../Data/constants";
 
 import "./ViewPage.css";
@@ -247,10 +246,10 @@ export default function ViewPage() {
             <h3>Average star rating given</h3>
             <span>{getAverageStarRating(books).toFixed(2)}</span>
           </div>
-          {/* <div className="avg-read-time">
+          <div className="avg-read-time">
             <h3>Average read time</h3>
             <span>{getAverageReadTime(books).toFixed() + " days"}</span>
-          </div> */}
+          </div>
         </div>
 
         <div className="favourite-authors">

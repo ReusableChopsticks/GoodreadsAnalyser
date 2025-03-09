@@ -5,12 +5,6 @@ interface TodoItem {
   completedOn?: Date
 }
 
-enum TodoStatus {
-  DONE = "done",
-  IN_PROGRESS = "in-progress",
-  TODO = "todo"
-}
-
 const todoItems: TodoItem[] = [
   { id: 1, title: "Learn HTML", status: "done", completedOn: new Date("2021-09-11") },
   { id: 2, title: "Learn TypeScript", status: "in-progress" },

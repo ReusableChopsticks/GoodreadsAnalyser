@@ -1,8 +1,5 @@
 # Goodreads Analyser
 
-Currently WIP. A frontend web app that shows statistics about your Goodreads library built with React and Typescript. UI designs originally made by me in Figma.
+[Website Link](https://ReusableChopsticks.github.io/GoodreadsAnalyser/)
 
-TODO: deploy to AWS!!!
-
-https://medium.com/dailyjs/a-guide-to-deploying-your-react-app-with-aws-s3-including-https-a-custom-domain-a-cdn-and-58245251f081
-
+A frontend web app that takes your Goodreads library and stacks every book on top of each other to see the heights your tower of knowledge reaches.  Built with React and Typescript. Made to apply CSS and frontend development skills. Original UI designs made in Figma.

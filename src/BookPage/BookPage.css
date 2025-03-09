@@ -44,6 +44,11 @@
   padding-inline: 2rem;
 }
 
+.additional-authors {
+  font-style: italic;
+  font-size: var(--fs-medium);
+}
+
 .book-page .back-button {
   margin-top: auto;
   width: fit-content;

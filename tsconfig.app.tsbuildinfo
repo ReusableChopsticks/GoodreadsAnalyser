@@ -1,0 +1,1 @@
+{"root":["./src/main.tsx","./src/vite-env.d.ts","./src/bookpage/bookpage.tsx","./src/data/constants.tsx","./src/data/repo.tsx","./src/errorpage/errorpage.tsx","./src/homepage/homepage.tsx","./src/viewpage/viewpage.tsx","./src/scraps/scrapyard.ts","./src/scraps/thejoyoflearningts.tsx"],"version":"5.6.2"}
