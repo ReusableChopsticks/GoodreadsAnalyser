@@ -19,7 +19,7 @@ import BookPage from './BookPage/BookPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/GoodreadsAnalyser">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/view" element={<ViewPage />} />
