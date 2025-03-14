@@ -17,7 +17,7 @@ const ReadMore = ({ children }: { children: string }) => {
   ) : (
     <div className="read-more" data-expanded={expanded}>
       <div className="read-more-content" data-expanded={expanded}>{convertMarkdown(children)}</div>
-      <span className="read-more-link" onClick={() => setExpanded(!expanded)}>
+      <span className="read-more-control" onClick={() => setExpanded(!expanded)}>
         {expanded ? "Show less ↑" : "Read more ↓"}
       </span>
     </div>

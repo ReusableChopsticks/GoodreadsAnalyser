@@ -94,7 +94,7 @@
   grid-template-rows: 1fr;
 }
 
-.read-more-link {
+.read-more-control {
   font-weight: bold;
   cursor: pointer;
   width: fit-content;

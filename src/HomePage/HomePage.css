@@ -62,6 +62,17 @@
   align-self: flex-end;
 }
 
+.sample-data-link {
+  color: var(--link-color);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.sample-data-link:hover {
+  color: var(--link-color-hover);
+}
+
 /* make the file input visible when focused for accessibility */
 /* taken from MDN docs https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications */
 input.visually-hidden:is(:focus, :focus-within) + label {

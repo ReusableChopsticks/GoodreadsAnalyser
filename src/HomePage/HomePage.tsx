@@ -7,6 +7,7 @@ import { MdOutlineUploadFile } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 
 import "./HomePage.css";
+import { SAMPLE_DATA } from "../Data/constants";
 
 const dynamicTypingFields = {
   "Number of Pages": true,
@@ -88,6 +89,13 @@ export default function HomePage() {
     e.stopPropagation();
   };
 
+  const handleSampleData = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setData(SAMPLE_DATA);
+    navigate("view");
+  }
+
   return (
     <div className="upload-page | even-columns ff-primary">
       <div className="file-input-container">
@@ -110,10 +118,11 @@ export default function HomePage() {
           <span id="text-input-span">
             Drag and drop exported Goodreads library file here
           </span>
-          <span id="or-input-span">OR</span>
           <button onClick={() => inputRef.current?.click()}>
             Browse Files
           </button>
+          <span id="or-input-span">OR</span>
+          <span className="sample-data-link" onClick={handleSampleData}>Use sample data</span>
         </label>
         <span id="input-privacy-notice">
           Note: Any data you upload is processed solely within your browser and

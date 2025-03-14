@@ -140,9 +140,13 @@ export default function ViewPage() {
    */
   const setSortedBooks = (bookList: GoodreadsDataField[], field: BookKeys) => {
     setBooks(bookList.toSorted((a, b) => {
+      
       let left = a[field];
       let right = b[field];
       let val = 0;
+      
+      if (left === null) { left = Number.MIN_VALUE; }
+      if (right === null) { right = Number.MIN_VALUE; }
       
       // if sorting by author, we sort by last name
       if (field === "Author") {

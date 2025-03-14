@@ -13,8 +13,8 @@ export interface GoodreadsDataField {
   "Publisher": string;
   "Binding": string;
   "Number of Pages": number;
-  "Year Published": number;
-  "Original Publication Year": number;
+  "Year Published": number | null;
+  "Original Publication Year": number | null;
   "Date Read": string;
   "Date Added": string;
   "Bookshelves": string;
