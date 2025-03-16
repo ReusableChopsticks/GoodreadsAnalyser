@@ -47,9 +47,7 @@
 }
 
 .book-page .back-button {
-  margin-top: auto;
   width: fit-content;
-  /* align-self: flex-end; */
 }
 
 .book-page {
