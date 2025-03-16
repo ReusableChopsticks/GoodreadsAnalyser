@@ -7,19 +7,19 @@ export const PX_PER_PAGE = PX_PER_MM / PAGE_HEIGHT_M;
 export type HeightComparisonObject = { height: number, name: string, description: string }
 
 export const HEIGHT_COMPARISONS: HeightComparisonObject[] = [
-  { height: -1, name: "not much really...", description: "???" },
+  { height: -1, name: "not much really", description: "You should read some more books..." },
   { height: 0.22, name: "a soccer ball ⚽", description: "The diameter of a standard size 5 soccer ball" },
-  { height: 0.55, name: "the height of the shortest person ever recorded 👤", description: "Chandra Bahadur Dangi holds the title of the world's shortest human adult ever documented" },
+  { height: 0.49, name: "a baby", description: "The length of an average newborn is about 49cm. If this is all you have ever read, then you literally have only read a baby-sized amount of knowledge" },
   { height: 0.76, name: "an acoustic guitar 🎸", description: "The length of a standard acoustic guitar" },
   { height: 1.2, name: "a lion 🦁", description: "A large wild cat" },
   { height: 1.3, name: "an emperor penguin 🐧", description: "The tallest and heaviest penguin species" },
-  { height: 1.7, name: "a human 👨", description: "An average adult human" },
+  { height: 1.7, name: "a human 👨", description: "Congratulations! The scale of your knowledge now exceeds the scale of your own physical body (if you're an average height person, of course)" },
   { height: 2, name: "a kangaroo 🦘", description: "A marsupial from Australia" },
-  { height: 2.45, name: "a volleyball net 🏐", description: "Fun fact, this is also higher than the tallest high jump recorded at the Olympics!" },
+  { height: 2.45, name: "a volleyball net 🏐", description: "Fun fact, this is also higher than the tallest high jump recorded at the Olympics! Officially no one in the world can jump over the heights of your knowledge" },
   { height: 3.05, name: "a basketball hoop 🏀", description: "The standard height for basketball backboards around the world" },
   { height: 3.96, name: "the tallest elephant 🐘", description: "The tallest elephant ever recorded was named Lincoln and stood at 3.96m tall" },
-  { height: 5.8, name: "a giraffe 🦒", description: "The tallest living terrestrial animal. The tallest recorded giraffe was named George and grew to be 5.8m tall." },
-  { height: 10, name: "a colossal squid 🦑", description: "The estimated maximum length of the largest squid species in the world." },
+  { height: 5.8, name: "a giraffe 🦒", description: "The tallest living terrestrial animal. The tallest recorded giraffe was named George and grew to be 5.8m tall" },
+  { height: 10, name: "a colossal squid 🦑", description: "The estimated maximum length of the largest squid species in the world" },
   { height: 13, name: "a Brachiosaurus 🦕", description: "A genus of sauropod dinosaur that lived in North America during the Late Jurassic, about 154–153 million years ago" },
   { height: 18, name: "a whale shark 🦈", description: "The length of the largest shark" },
   { height: 20.6, name: "Flinders Street Railway Station 🚉", description: "The height of Melbourne's most iconic train station" },
@@ -29,7 +29,7 @@ export const HEIGHT_COMPARISONS: HeightComparisonObject[] = [
   { height: 67, name: "the Sydney Opera House 🎭", description: "The height of the tallest point of the structure, equivalent to the height of a 22-storey building" },
   { height: 93, name: "the Statue of Liberty 🗽", description: "A colossal neoclassical sculpture on Liberty Island" },
   { height: 116, name: "the tallest tree 🌲", description: "The tallest tree in the world is a coast redwood (Sequoia sempervirens), named Hyperion. It was discovered in 2006 and is 116m tall." },
-  { height: 135, name: "the London Eye 🎡", description: "A giant Ferris wheel on the South Bank of the River Thames in London. Also known as the Millennium Wheel, its official name was originally the British Airways London Eye, then the Merlin Entertainments London Eye, and since January 2011, the EDF Energy London Eye." },
+  { height: 135, name: "the London Eye 🎡", description: "This is the largest object I have put in this app. If you have actually exceeded THE LONDON EYE then I want to say that I respect you and I am afraid of you" },
 ];
 
 // the upper bound for library height according to what I found on Goodreads is about 187m!!!! these people are insane

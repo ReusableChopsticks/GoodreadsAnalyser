@@ -309,14 +309,14 @@ export default function ViewPage() {
         })}
 
         <div className="height-display">
-          <p style={{ fontSize: "1.5rem" }}>Your tower is </p>
+          <p style={{ fontSize: "1.5rem" }}>All of your books stacked together are</p>
           <p style={{ fontSize: "2rem" }}>{`${getBookStackHeight(
             totalPageCount
           ).toFixed(2)}m tall`}</p>
-          <p style={{ fontSize: "1rem" }}>{`... which is taller than ${
+          <p style={{ fontSize: "1rem", paddingTop: "1rem" }}>{`... which is taller than ${
             getHeightComparison(getBookStackHeight(totalPageCount)).name
           }`}</p>
-          {/* <p className="fs-small">{getHeightComparison(stackHeight).description}</p> */}
+          <p className="height-comparison-desc | fs-small">{getHeightComparison(getBookStackHeight(totalPageCount)).description}</p>
         </div>
       </div>
     </div>

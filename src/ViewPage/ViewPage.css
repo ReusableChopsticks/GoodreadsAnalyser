@@ -108,6 +108,10 @@ label:has(#select-sort-by) {
   /* padding-top: 10rem; */
 }
 
+.height-comparison-desc {
+  max-width: 50ch;
+}
+
 .scroll-shortcuts {
   z-index: 1;
   position: fixed;
