@@ -12,6 +12,7 @@ import {
 
 import "./ViewPage.css";
 import { Link, useNavigate } from "react-router";
+import NavBar from "../Components/NavBar";
 
 interface BookSpineProps {
   // h is a number between [0, 1] evenly spaced by the golden ratio
@@ -188,6 +189,7 @@ export default function ViewPage() {
   }
 
   return (
+    <>
     <div className="view-page">
       <div
         className="statistics-view | flow"
@@ -318,6 +320,7 @@ export default function ViewPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

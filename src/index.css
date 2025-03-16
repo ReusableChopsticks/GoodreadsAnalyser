@@ -1,6 +1,9 @@
 #root {
   font-family: var(--ff-primary);
   font-size: var(--fs-body);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 button, .button {

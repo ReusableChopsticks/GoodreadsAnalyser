@@ -1,0 +1,19 @@
+.navbar {
+  width: 100%;
+  min-height: 3rem;
+  background-color: var(--clr-neutral-100);
+  border-bottom: 2px solid #eee;
+}
+
+/* CONTRACT */
+/* 
+  NavBar will always be a sibling to the page contents 
+  root is a flex container so the page contents will take up the remaining space
+  <div #root>
+    <div .navbar></div>
+    <div .page-contents></div>
+  </div>
+*/
+.navbar + div {
+  flex-grow: 1;
+}

@@ -15,11 +15,13 @@ import ViewPage from './ViewPage/ViewPage.tsx';
 import HomePage from './HomePage/HomePage.tsx';
 import ScrapsPage from './scraps/thejoyoflearningts.tsx';
 import BookPage from './BookPage/BookPage.tsx'
+import NavBar from './Components/NavBar.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter basename="/GoodreadsAnalyser">
+      <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/view" element={<ViewPage />} />

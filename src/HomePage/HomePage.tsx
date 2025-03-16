@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import "./HomePage.css";
 import { SAMPLE_DATA } from "../Data/constants";
+import NavBar from "../Components/NavBar";
 
 const dynamicTypingFields = {
   "Number of Pages": true,
@@ -97,6 +98,7 @@ export default function HomePage() {
   }
 
   return (
+    <>
     <div className="upload-page | even-columns ff-primary">
       <div className="file-input-container">
         <input
@@ -153,5 +155,6 @@ export default function HomePage() {
         </ol>
       </div>
     </div>
+    </>
   );
 }

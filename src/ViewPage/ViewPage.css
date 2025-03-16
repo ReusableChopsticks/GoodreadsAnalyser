@@ -2,10 +2,13 @@
 /* * {outline: solid red 1px} */
 
 .view-page {
+  /* 
+    For this page only, due to the scrollable contents, we need to calculate the max height
+    according to the navbar height. Thus, the navbar height must be constant
+  */
+  max-height: calc(100vh - var(--navbar-height));
   display: grid;
   grid-template-columns: 1fr 1.618fr;
-  /* max-height: 100vh; */
-  /* overflow-y: auto; */
 }
 
 .view-page h1, h2, h3 {
@@ -18,8 +21,6 @@
 
 /* STATISTICS */
 .statistics-view {
-  max-height: 100vh;
-
   outline: solid #ddd 2px;
   margin-inline: 1rem;
   padding-inline: 2rem;
@@ -97,15 +98,13 @@ label:has(#select-sort-by) {
 /* BOOK TOWER */
 
 .book-tower {
-  /* position: relative; */
   background: linear-gradient(#FFF8EA, #ffe3a7);
-  height: 100vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-end;
 
-  /* top padding so theres space at the top of the book stack */
+  /* top padding so theres space at the top of the book stack (if you want) */
   /* padding-top: 10rem; */
 }
 
