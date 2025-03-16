@@ -1,10 +1,3 @@
-.navbar {
-  width: 100%;
-  min-height: 3rem;
-  background-color: var(--clr-neutral-100);
-  border-bottom: 2px solid #eee;
-}
-
 /* CONTRACT */
 /* 
   NavBar will always be a sibling to the page contents 
@@ -16,4 +9,38 @@
 */
 .navbar + div {
   flex-grow: 1;
+}
+
+.navbar {
+  width: 100%;
+  min-height: 3rem;
+  background-color: var(--clr-neutral-100);
+  border-bottom: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6rem;
+  font-size: large;
+  font-family: var(--ff-secondary);
+}
+
+.navbar .left, .right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar a {
+  transition: .2s;
+  text-decoration: none;
+  color: var(--clr-neutral-800)
+}
+
+.navbar a:hover {
+  color: var(--clr-neutral-900);
+}
+
+.navbar .active {
+  text-decoration: underline;
+  font-weight: bold;
 }

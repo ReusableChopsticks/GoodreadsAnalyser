@@ -58,7 +58,7 @@
 }
 
 #input-privacy-notice {
-  font-size: var(--fs-small);
+  font-size: var(--fs-medium);
   font-weight: 100;
   align-self: flex-end;
 }

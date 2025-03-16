@@ -5,9 +5,15 @@ export default function NavBar() {
 
   return (
     <div className="navbar">
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/view">View</NavLink>
-      About
+      <div className="left">
+        <NavLink to="/" >Home</NavLink>
+        <NavLink to="/view">View</NavLink>
+      </div>
+
+      <div className="right">
+        <span>About</span>
+      </div>
+      
       
     </div>
   )
