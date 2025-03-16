@@ -22,9 +22,6 @@
   --fs-sub-heading: 1.5rem;
   --fs-heading: 2rem;
   --fs-large-heading: 3rem;
-
-  /* navbar constant for the tricky to style viewpage */
-  --navbar-height: 3rem;
 }
 
 .ff-primary {

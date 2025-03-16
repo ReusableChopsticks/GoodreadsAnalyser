@@ -1,3 +1,8 @@
+:root {
+  /* navbar constant for the tricky to style viewpage */
+  --navbar-height: 3.5rem;
+}
+
 /* CONTRACT */
 /* 
   NavBar will always be a sibling to the page contents 
@@ -13,7 +18,7 @@
 
 .navbar {
   width: 100%;
-  min-height: 3rem;
+  min-height: var(--navbar-height);
   background-color: var(--clr-neutral-100);
   border-bottom: 2px solid #ddd;
   display: flex;
