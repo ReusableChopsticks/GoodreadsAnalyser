@@ -51,9 +51,9 @@ export default function BookPage() {
       if (result) {
         console.log(result.data.items[0]);
         setGoogleData(result.data.items[0]);
-        const rawUrl = result.data.items[0].volumeInfo.imageLinks.thumbnail;
-        const zoomedUrl = rawUrl.replace("zoom=1", "zoom=100");
-        setBookCoverURL(zoomedUrl);
+        let url = result.data.items[0].volumeInfo.imageLinks.thumbnail;
+        // url = url.replace("zoom=1", "zoom=100");
+        setBookCoverURL(url);
         console.log(book.ISBN13);
       } else {
         setGoogleData(null);
@@ -71,7 +71,8 @@ export default function BookPage() {
             <img className="book-cover" src={bookCoverURL} alt="Book cover" />
             <h3>Metadata</h3>
             <div className="metadata | even-columns">
-              <div>
+              {/* google api does not always return an ISBN. this can break the page (e.g. Wuthering Heights) */}
+              {/* <div>
                 <h4>ISBN13</h4>
                 <span>
                   {book.ISBN13 !== "" && book.ISBN13 !== `=""`
@@ -86,7 +87,7 @@ export default function BookPage() {
                     ? book.ISBN.slice(2, -1)
                     : googleData.volumeInfo.industryIdentifiers[1].identifier}
                 </span>
-              </div>
+              </div> */}
               <div>
                 <h4>Page count</h4>
                 <span>{book["Number of Pages"]}</span>
@@ -97,7 +98,7 @@ export default function BookPage() {
               </div>
               <div>
                 <h4>Publisher</h4>
-                <span>{googleData.volumeInfo.publisher}</span>
+                <span>{googleData.volumeInfo.publisher ? googleData.volumeInfo.publisher : "N/A"}</span>
               </div>
               
               {
