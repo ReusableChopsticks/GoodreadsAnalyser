@@ -15,7 +15,7 @@ export const HEIGHT_COMPARISONS: HeightComparisonObject[] = [
   { height: 1.3, name: "an emperor penguin 🐧", description: "The tallest and heaviest penguin species" },
   { height: 1.7, name: "a human 👨", description: "Congratulations! The scale of your knowledge now exceeds the scale of your own physical body (if you're an average height person, of course)" },
   { height: 2, name: "a kangaroo 🦘", description: "A marsupial from Australia" },
-  { height: 2.45, name: "a volleyball net 🏐", description: "Fun fact, this is also higher than the tallest high jump recorded at the Olympics! Officially no one in the world can jump over the heights of your knowledge" },
+  { height: 2.45, name: "a volleyball net 🏐", description: "Fun fact, this is also higher than the tallest high jump recorded at the Olympics! You can now officially say no one in the world can jump over the heights of your knowledge" },
   { height: 3.05, name: "a basketball hoop 🏀", description: "The standard height for basketball backboards around the world" },
   { height: 3.96, name: "the tallest elephant 🐘", description: "The tallest elephant ever recorded was named Lincoln and stood at 3.96m tall" },
   { height: 5.8, name: "a giraffe 🦒", description: "The tallest living terrestrial animal. The tallest recorded giraffe was named George and grew to be 5.8m tall" },
@@ -28,7 +28,7 @@ export const HEIGHT_COMPARISONS: HeightComparisonObject[] = [
   { height: 57, name: "the Leaning Tower of Pisa 🗼", description: "The height of the Leaning Tower of Pisa" },
   { height: 67, name: "the Sydney Opera House 🎭", description: "The height of the tallest point of the structure, equivalent to the height of a 22-storey building" },
   { height: 93, name: "the Statue of Liberty 🗽", description: "A colossal neoclassical sculpture on Liberty Island" },
-  { height: 116, name: "the tallest tree 🌲", description: "The tallest tree in the world is a coast redwood (Sequoia sempervirens), named Hyperion. It was discovered in 2006 and is 116m tall." },
+  { height: 116, name: "the tallest tree 🌲", description: "The tallest tree in the world is a coast redwood (Sequoia sempervirens), named Hyperion. It was discovered in 2006 and is 116m tall. The amount of paper from every book that you have read now rivals the height of every tree on Earth" },
   { height: 135, name: "the London Eye 🎡", description: "This is the largest object I have put in this app. If you have actually exceeded THE LONDON EYE then I want to say that I respect you and I am afraid of you" },
 ];
 
