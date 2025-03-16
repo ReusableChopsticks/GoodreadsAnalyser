@@ -1,9 +1,13 @@
 /* * { outline: 1px solid red; } */
 
-/* FILE INPUT */
 .upload-page {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.upload-page h1 {
+  font-weight: bold;
+  font-size: var(--fs-large-heading);
 }
 
 .file-input-container {
@@ -11,7 +15,7 @@
   margin-block: 3rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;;
+  gap: 1rem;
 }
 
 #file-input-label {
