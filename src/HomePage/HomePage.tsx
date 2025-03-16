@@ -8,7 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import "./HomePage.css";
 import { SAMPLE_DATA } from "../Data/constants";
-import NavBar from "../Components/NavBar";
 
 const dynamicTypingFields = {
   "Number of Pages": true,
@@ -137,20 +136,20 @@ export default function HomePage() {
       <ToastContainer />
         <h1>Get Started</h1>
         <p>
-          Goodreads Visualiser takes your Goodreads library and finds some
-          interesting statistics about your reading habits and displays the size of your books to scale. Follow the steps below to get started!
+          Goodreads Analyser takes your Goodreads library, stacks each book on top of each other into a tower, and finds some
+          interesting statistics about your reading habits. Follow the steps below to get started!
         </p>
 
         <ol className="flow">
           <li>
             On Goodreads, sign in and go to 'My Books' or click{" "}
-            <a className="link" target="_blank" href="https://www.goodreads.com/review/import">this link</a> and then on the side bar, click 'Import/Export.'
+            <a className="link" target="_blank" href="https://www.goodreads.com/review/import">this link</a>. Then on the left side bar, click the heading 'Import/Export.'
           </li>
           <li>
-            Now click on 'Export Library.' Finally, when it appears, the generated link to download your Goodreads data.
+            Now click on 'Export Library.' When it appears, click the generated link to download your Goodreads data.
           </li>
           <li>
-            Upload the file to this page and enjoy your Goodreads visualiser!
+            You should now have a csv file. Upload the file to this site and see your books!
           </li>
         </ol>
       </div>

@@ -19,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 6rem;
+  padding: 0 5rem;
   font-size: large;
   font-family: var(--ff-secondary);
 }
@@ -27,20 +27,20 @@
 .navbar .left, .right {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 5vw;
 }
 
 .navbar a {
   transition: .2s;
   text-decoration: none;
-  color: var(--clr-neutral-800)
-}
-
-.navbar a:hover {
   color: var(--clr-neutral-900);
 }
 
+.navbar a:hover {
+  color: var(--clr-neutral-800)
+}
+
 .navbar .active {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   font-weight: bold;
 }
